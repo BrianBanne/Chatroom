@@ -1,17 +1,70 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en">
-<head>
-  <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
+    <title>Oblig 2</title>
+    <meta name="description" content="Oblig 2" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-  <title>Oblig 2</title>
-  <meta name="description" content="Oblig 2>
+  <body>
+    <script type="module">
+      import { createUser, getUsers } from "./api.js";
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+      const form = document.getElementById("registerForm");
+      form.addEventListener("submit", handleSubmit);
+      
+      const getUsersButton = document.getElementById("getUsersBtn")
+      getUsersButton.addEventListener("click", handleGetUsers);
 
-</head>
+      async function handleGetUsers() {
+        const res = await getUsers();
+        const formattedUsers = res.users.map((user) => `<li>${user.name}</li>`);
+        document.getElementById("userList").innerHTML = formattedUsers;
+      }
 
-<body>
-  <script src="js/scripts.js"></script>
-</body>
+      async function handleSubmit() {
+        const name = document.getElementById("name").value;
+        const room = document.getElementById("room_id").value;
+        if (name === "") {
+          alert("You have to provide a name");
+          return;
+        }
+        const res = await createUser(name, room);
+
+        alert(res.message);
+      }
+    </script>
+    <script type="module">
+      import { getRoomRange } from "./scripts.js";
+      document.getElementById("room_id").innerHTML = getRoomRange();
+    </script>
+
+    <h1>Chatteprogram</h1>
+    <main>
+      <div class="container">
+        <section class="form">
+          <h2>Register</h2>
+          <form id="registerForm" onsubmit="return false">
+            <label>
+              Name:
+              <input type="text" id="name" name="name" />
+            </label>
+
+            <label>
+              Room:
+              <select id="room_id"></select>
+            </label>
+            <button type="submit">Create user</button>
+          </form>
+        </section>
+        <section>
+          <h2>Users</h2>
+          <button id="getUsersBtn">Show</button>
+          <ul id="userList"></ul>
+        </section>
+      </div>
+    </main>
+  </body>
 </html>
