@@ -5,58 +5,55 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from models.user import User  # noqa: E501
+from models.room import Room  # noqa: E501
+from models.room_users import RoomUsers  # noqa: E501
 from test import BaseTestCase
 
 
-class TestUserController(BaseTestCase):
-    """UserController integration test stubs"""
+class TestRoomController(BaseTestCase):
+    """RoomController integration test stubs"""
 
-    def test_add_user(self):
-        """Test case for add_user
+    def test_create_room(self):
+        """Test case for create_room
 
-        Creates a new user
+        Creates a new room
         """
-        name = 'name_example'
         response = self.client.open(
-            '/api/users',
-            method='POST',
-            data=json.dumps(name),
-            content_type='application/json')
+            '/api/rooms',
+            method='POST')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_delete_user_from_id(self):
-        """Test case for delete_user_from_id
+    def test_get_room_from_id(self):
+        """Test case for get_room_from_id
 
-        Delete user from id
+        Get room from id
         """
         response = self.client.open(
-            '/api/user/{id}'.format(id='id_example'),
-            method='DELETE',
-            content_type='application/json')
-        self.assert200(response,
-                       'Response body is : ' + response.data.decode('utf-8'))
-
-    def test_get_all_users(self):
-        """Test case for get_all_users
-
-        Get all users
-        """
-        response = self.client.open(
-            '/api/users',
+            '/api/rooms/{id}'.format(id='id_example'),
             method='GET',
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_get_user_from_id(self):
-        """Test case for get_user_from_id
+    def test_get_room_users_from_id(self):
+        """Test case for get_room_users_from_id
 
-        Get user from id
+        
         """
         response = self.client.open(
-            '/api/user/{id}'.format(id='id_example'),
+            '/api/room/{room-id}/users'.format(room_id='room_id_example'),
+            method='GET')
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_get_rooms(self):
+        """Test case for get_rooms
+
+        Get all rooms
+        """
+        response = self.client.open(
+            '/api/rooms',
             method='GET',
             content_type='application/json')
         self.assert200(response,

@@ -31,8 +31,12 @@ paths:
       parameters: []
       responses:
         "200":
-          description: "Users successfully retrieved"
-      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+          description: "List of all users"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+      x-swagger-router-controller: "controllers.user_controller"
     post:
       tags:
       - "user"
@@ -45,7 +49,7 @@ paths:
         description: "User must provide a name"
         required: true
         schema:
-          $ref: "#/definitions/User"
+          type: "object"
       responses:
         "201":
           description: "User successfully created"
@@ -53,7 +57,7 @@ paths:
           description: "Invalid input"
         "409":
           description: "User already exists"
-      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+      x-swagger-router-controller: "controllers.user_controller"
   /user/{id}:
     get:
       tags:
@@ -70,13 +74,15 @@ paths:
         in: "path"
         description: "The id for the name needed"
         required: true
-        type: "integer"
+        type: "string"
       responses:
         "200":
-          description: "Users successfully retrieved from id"
+          description: "Returns single user"
+          schema:
+            $ref: "#/definitions/User"
         "400":
           description: "Could not get user from id"
-      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+      x-swagger-router-controller: "controllers.user_controller"
     delete:
       tags:
       - "user"
@@ -98,13 +104,224 @@ paths:
           description: "Users successfully deletetd"
         "400":
           description: "Could not delete user from id"
-      x-swagger-router-controller: "swagger_server.controllers.user_controller"
+      x-swagger-router-controller: "controllers.user_controller"
+  /rooms:
+    get:
+      tags:
+      - "room"
+      summary: "Get all rooms"
+      description: ""
+      operationId: "get_rooms"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "List of all rooms"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Room"
+        "400":
+          description: "Unable to retrieve rooms"
+      x-swagger-router-controller: "controllers.room_controller"
+    post:
+      tags:
+      - "room"
+      summary: "Creates a new room"
+      description: ""
+      operationId: "create_room"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User ID needed to join the created room"
+        required: true
+        schema:
+          type: "object"
+      responses:
+        "201":
+          description: "Room successfully created"
+        "400":
+          description: "Unable to create room"
+      x-swagger-router-controller: "controllers.room_controller"
+  /rooms/{id}:
+    get:
+      tags:
+      - "room"
+      summary: "Get room from id"
+      description: ""
+      operationId: "get_room_from_id"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The id for the room needed"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Single room from id"
+          schema:
+            $ref: "#/definitions/Room"
+        "400":
+          description: "Could not get room from id"
+      x-swagger-router-controller: "controllers.room_controller"
+  /room/{room-id}/users:
+    get:
+      tags:
+      - "room"
+      operationId: "get_room_users_from_id"
+      parameters:
+      - name: "room-id"
+        in: "path"
+        description: "The id for the room needed"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "List of users in room"
+          schema:
+            $ref: "#/definitions/RoomUsers"
+        "400":
+          description: "Could not get room from id"
+      x-swagger-router-controller: "controllers.room_controller"
+    post:
+      tags:
+      - "room"
+      operationId: "join_room_from_id"
+      parameters:
+      - name: "room-id"
+        in: "path"
+        description: "The id for the room needed"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "List of users in room"
+          schema:
+            $ref: "#/definitions/RoomUsers"
+        "400":
+          description: "Could not get room from id"
+      x-swagger-router-controller: "controllers.room_controller"
+  /room/{room-id}/messages:
+    get:
+      tags:
+      - "message"
+      operationId: "room_room_id_messages_get"
+      parameters:
+      - name: "room-id"
+        in: "path"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "room_id"
+        description: "User must provide a name"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "Room successfully retrieved from id"
+        "400":
+          description: "Could not get room from id"
+      x-swagger-router-controller: "controllers.message_controller"
+  /room/{room-id}/{user-id}/messages:
+    get:
+      tags:
+      - "message"
+      operationId: "room_room_id_user_id_messages_get"
+      parameters:
+      - name: room-id
+        in: path
+        description: "The id for the room needed"
+        required: true
+        type: "string"
+      - name: user-id
+        in: path
+        description: "The id for the user needed"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Room successfully retrieved from id"
+        "400":
+          description: "Could not get room from id"
+      x-swagger-router-controller: "controllers.message_controller"
+    post:
+      tags:
+      - "message"
+      operationId: "room_room_id_user_id_messages_post"
+      parameters:
+      - name: "room-id"
+        in: "path"
+        description: "The id for the room needed"
+        required: true
+        type: "string"
+      - name: "user-id"
+        in: "path"
+        description: "The id for the user needed"
+        required: true
+        type: "string"
+      responses:
+        "201":
+          description: "Message successfully posted in room"
+        "400":
+          description: "Could not get room from id"
+      x-swagger-router-controller: "controllers.message_controller"
 definitions:
   User:
     type: "object"
     properties:
       id:
-        type: "integer"
-        format: "int64"
+        type: "string"
       username:
         type: "string"
+    example:
+      id: "id"
+      username: "username"
+  Room:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+    example:
+      id: "id"
+  RoomUsers:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      Users:
+        type: "array"
+        items:
+          $ref: "#/definitions/User"
+    example:
+      id: "id"
+      Users:
+      - id: "id"
+        username: "username"
+      - id: "id"
+        username: "username"
+  Message:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      User:
+        $ref: "#/definitions/User"
+      Text:
+        type: "string"
+  RoomMessages:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      Messages:
+        type: "array"
+        items:
+          $ref: "#/definitions/Message"
