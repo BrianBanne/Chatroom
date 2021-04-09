@@ -1,31 +1,27 @@
-from logging import log
 import connexion
 import six
+
+from swagger_server.models.user import User  # noqa: E501
+from swagger_server import util
 from flask import jsonify
-from models.user import User  # noqa: E501
-import util
-import sys
+import uuid
 
 users = []
 
-def add_user(body):  # noqa: E501
+def add_user(name):  # noqa: E501
     """Creates a new user
-
 
      # noqa: E501
 
     :param name: User must provide a name
     :type name: str
 
-    :rtype: None
+    :rtype: User
     """
-    print(body)
-    username = body["name"]
-    #user = {'userId': util.getUUIDhex() ,'name': username}
-    user = User(util.getUUIDhex(), username)
-    users.append(user)
-
-    return jsonify(message=f"User {username} succesfully created", data=user.getUserObject())
+    print(name)
+    new_user = User(uuid.uuid4().hex, name)
+    users.append(new_user)
+    return jsonify(new_user.to_dict())
 
 
 def delete_user_from_id(id):  # noqa: E501
@@ -38,7 +34,11 @@ def delete_user_from_id(id):  # noqa: E501
 
     :rtype: None
     """
-    return 'do some magic!'
+    for user in users:
+        if (user.id() == id):
+            del user
+            return jsonify(message="User removed")
+    return jsonify(message="Cant remove user")
 
 
 def get_all_users():  # noqa: E501
@@ -49,10 +49,7 @@ def get_all_users():  # noqa: E501
 
     :rtype: List[User]
     """
-    formattedUsers = []
-    for user in users:
-        formattedUsers.append(user.getUserObject())
-    return jsonify(data=formattedUsers)
+    return 'do some magic!'
 
 
 def get_user_from_id(id):  # noqa: E501
@@ -65,5 +62,7 @@ def get_user_from_id(id):  # noqa: E501
 
     :rtype: User
     """
-    return 'do some magic!'
-
+    for user in users:
+        if user.id == id:
+            return user
+    return None

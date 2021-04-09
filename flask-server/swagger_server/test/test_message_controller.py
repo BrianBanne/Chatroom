@@ -5,7 +5,8 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from test import BaseTestCase
+from swagger_server.models.room_messages import RoomMessages  # noqa: E501
+from swagger_server.test import BaseTestCase
 
 
 class TestMessageController(BaseTestCase):
@@ -39,11 +40,14 @@ class TestMessageController(BaseTestCase):
     def test_room_room_id_user_id_messages_post(self):
         """Test case for room_room_id_user_id_messages_post
 
-        
+        Post message in room
         """
+        message = 'message_example'
         response = self.client.open(
             '/api/room/{room-id}/{user-id}/messages'.format(room_id='room_id_example', user_id='user_id_example'),
-            method='POST')
+            method='POST',
+            data=json.dumps(message),
+            content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

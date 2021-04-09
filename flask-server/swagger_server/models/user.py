@@ -5,8 +5,8 @@ from datetime import date, datetime  # noqa: F401
 
 from typing import List, Dict  # noqa: F401
 
-from models.base_model_ import Model
-import util
+from swagger_server.models.base_model_ import Model
+from swagger_server import util
 
 
 class User(Model):
@@ -88,6 +88,3 @@ class User(Model):
         """
 
         self._username = username
-
-    def getUserObject(self):
-        return {'username': self._username, 'id': self._id}

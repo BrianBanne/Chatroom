@@ -5,10 +5,10 @@ from datetime import date, datetime  # noqa: F401
 
 from typing import List, Dict  # noqa: F401
 
-from models.base_model_ import Model
-from models.user import User
+from swagger_server.models.base_model_ import Model
+from swagger_server.models.user import User
 
-import util
+from swagger_server import util
 
 
 class RoomUsers(Model):

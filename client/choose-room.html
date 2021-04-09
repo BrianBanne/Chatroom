@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Choose a room</title>
+    <meta name="description" content="Oblig 2" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <script type="module">
+      import {
+        createUser,
+        getUsers,
+        getRooms,
+        createRoom,
+        joinRoom,
+      } from "./api.js";
+      import { getAvailableRooms } from "./scripts.js";
+
+      try {
+        const { data: rooms } = await getRooms();
+        document.getElementById("room_id").innerHTML = getAvailableRooms(rooms);
+      } catch (err) {
+        alert(err);
+      }
+
+      const { username, id: userId } = localStorage.getItem("user")
+        ? JSON.parse(localStorage.getItem("user"))
+        : null;
+      console.log(localStorage.getItem("user"));
+      document.getElementById("username").innerHTML =
+        username !== undefined ? username : "";
+
+      const pickRoomForm = document.getElementById("pickRoomForm");
+      document
+        .getElementById("createRoomButton")
+        .addEventListener("click", handleCreateRoom);
+
+      pickRoomForm.addEventListener("submit", handleEnterRoom);
+
+      async function handleEnterRoom() {
+        const selectedRoomId = document.getElementById("room_id").value;
+        try {
+          const res = await joinRoom(userId, selectedRoomId);
+          goToRoom(selectedRoomId);
+        } catch (err) {
+          alert(err);
+        }
+      }
+
+      console.log("pre", userId);
+
+      async function handleCreateRoom() {
+        try {
+          const {
+            data: { id },
+          } = await createRoom(userId);
+          alert("Room succesfully created!");
+          goToRoom(id);
+        } catch (err) {
+          alert(err);
+        }
+      }
+
+      function goToRoom(roomId) {
+        localStorage.setItem("currentRoom", roomId);
+        window.location = "/room";
+      }
+    </script>
+
+    <h1>Pick a room</h1>
+
+    <p style="text-align: center">
+      Hi <span id="username"></span>! Pick a room or create a new!
+    </p>
+    <nav style="margin: 1rem"><a href="/">Go back</a></nav>
+    <main>
+      <div class="container">
+        <section class="form">
+          <h2>Pick a room or create a new</h2>
+          <form id="pickRoomForm" onsubmit="return false">
+            <label>
+              Existing rooms:
+              <select id="room_id"></select>
+              <button type="button" id="createRoomButton">
+                Create a new room
+              </button>
+            </label>
+            <button type="submit">Go to room</button>
+          </form>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

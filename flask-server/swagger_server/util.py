@@ -2,7 +2,6 @@ import datetime
 
 import six
 import typing
-import uuid
 
 
 def _deserialize(data, klass):
@@ -140,7 +139,3 @@ def _deserialize_dict(data, boxed_type):
     """
     return {k: _deserialize(v, boxed_type)
             for k, v in six.iteritems(data)}
-
-
-def getUUIDhex():
-    return uuid.uuid4().hex

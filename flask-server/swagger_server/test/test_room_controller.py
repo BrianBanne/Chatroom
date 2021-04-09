@@ -5,9 +5,10 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from models.room import Room  # noqa: E501
-from models.room_users import RoomUsers  # noqa: E501
-from test import BaseTestCase
+from swagger_server.models.room import Room  # noqa: E501
+from swagger_server.models.room_user import RoomUser  # noqa: E501
+from swagger_server.models.room_users import RoomUsers  # noqa: E501
+from swagger_server.test import BaseTestCase
 
 
 class TestRoomController(BaseTestCase):
@@ -18,14 +19,17 @@ class TestRoomController(BaseTestCase):
 
         Creates a new room
         """
+        userId = 'userId_example'
         response = self.client.open(
             '/api/rooms',
-            method='POST')
+            method='POST',
+            data=json.dumps(userId),
+            content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_get_room_from_id(self):
-        """Test case for get_room_from_id
+    def test_get_room(self):
+        """Test case for get_room
 
         Get room from id
         """
@@ -36,8 +40,8 @@ class TestRoomController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    def test_get_room_users_from_id(self):
-        """Test case for get_room_users_from_id
+    def test_get_room_users(self):
+        """Test case for get_room_users
 
         
         """
@@ -55,6 +59,20 @@ class TestRoomController(BaseTestCase):
         response = self.client.open(
             '/api/rooms',
             method='GET',
+            content_type='application/json')
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_join_room(self):
+        """Test case for join_room
+
+        
+        """
+        userId = 'userId_example'
+        response = self.client.open(
+            '/api/room/{room-id}/users'.format(room_id='room_id_example'),
+            method='POST',
+            data=json.dumps(userId),
             content_type='application/json')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))

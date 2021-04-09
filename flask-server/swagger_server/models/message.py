@@ -5,9 +5,8 @@ from datetime import date, datetime  # noqa: F401
 
 from typing import List, Dict  # noqa: F401
 
-from models.user import User
-from models.base_model_ import Model
-import util
+from swagger_server.models.base_model_ import Model
+from swagger_server import util
 
 
 class Message(Model):
@@ -16,30 +15,25 @@ class Message(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, id: str=None, user: User=None, text: str=None):  # noqa: E501
+    def __init__(self, id: str=None, text: str=None):  # noqa: E501
         """Message - a model defined in Swagger
 
         :param id: The id of this Message.  # noqa: E501
         :type id: str
-        :param user: The user of this Message.  # noqa: E501
-        :type user: User
         :param text: The text of this Message.  # noqa: E501
         :type text: str
         """
         self.swagger_types = {
             'id': str,
-            'user': User,
             'text': str
         }
 
         self.attribute_map = {
             'id': 'id',
-            'user': 'User',
             'text': 'Text'
         }
 
         self._id = id
-        self._user = user
         self._text = text
 
     @classmethod
@@ -73,27 +67,6 @@ class Message(Model):
         """
 
         self._id = id
-
-    @property
-    def user(self) -> User:
-        """Gets the user of this Message.
-
-
-        :return: The user of this Message.
-        :rtype: User
-        """
-        return self._user
-
-    @user.setter
-    def user(self, user: User):
-        """Sets the user of this Message.
-
-
-        :param user: The user of this Message.
-        :type user: User
-        """
-
-        self._user = user
 
     @property
     def text(self) -> str:

@@ -5,9 +5,11 @@ from datetime import date, datetime  # noqa: F401
 
 from typing import List, Dict  # noqa: F401
 
-from models.base_model_ import Model
-from models.message import Message
-import util
+from swagger_server.models.base_model_ import Model
+from swagger_server.models.room import Room
+from swagger_server.models.user_messages import UserMessages
+
+from swagger_server import util
 
 
 class RoomMessages(Model):
@@ -16,25 +18,25 @@ class RoomMessages(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, id: str=None, messages: List[Message]=None):  # noqa: E501
+    def __init__(self, room: Room=None, messages: List[UserMessages]=None):  # noqa: E501
         """RoomMessages - a model defined in Swagger
 
-        :param id: The id of this RoomMessages.  # noqa: E501
-        :type id: str
+        :param room: The room of this RoomMessages.  # noqa: E501
+        :type room: Room
         :param messages: The messages of this RoomMessages.  # noqa: E501
-        :type messages: List[Message]
+        :type messages: List[UserMessages]
         """
         self.swagger_types = {
-            'id': str,
-            'messages': List[Message]
+            'room': Room,
+            'messages': List[UserMessages]
         }
 
         self.attribute_map = {
-            'id': 'id',
+            'room': 'room',
             'messages': 'Messages'
         }
 
-        self._id = id
+        self._room = room
         self._messages = messages
 
     @classmethod
@@ -49,43 +51,43 @@ class RoomMessages(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def id(self) -> str:
-        """Gets the id of this RoomMessages.
+    def room(self) -> Room:
+        """Gets the room of this RoomMessages.
 
 
-        :return: The id of this RoomMessages.
-        :rtype: str
+        :return: The room of this RoomMessages.
+        :rtype: Room
         """
-        return self._id
+        return self._room
 
-    @id.setter
-    def id(self, id: str):
-        """Sets the id of this RoomMessages.
+    @room.setter
+    def room(self, room: Room):
+        """Sets the room of this RoomMessages.
 
 
-        :param id: The id of this RoomMessages.
-        :type id: str
+        :param room: The room of this RoomMessages.
+        :type room: Room
         """
 
-        self._id = id
+        self._room = room
 
     @property
-    def messages(self) -> List[Message]:
+    def messages(self) -> List[UserMessages]:
         """Gets the messages of this RoomMessages.
 
 
         :return: The messages of this RoomMessages.
-        :rtype: List[Message]
+        :rtype: List[UserMessages]
         """
         return self._messages
 
     @messages.setter
-    def messages(self, messages: List[Message]):
+    def messages(self, messages: List[UserMessages]):
         """Sets the messages of this RoomMessages.
 
 
         :param messages: The messages of this RoomMessages.
-        :type messages: List[Message]
+        :type messages: List[UserMessages]
         """
 
         self._messages = messages

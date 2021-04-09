@@ -1,9 +1,12 @@
-export function getRoomRange() {
+export function getAvailableRooms(rooms) {
+  console.log(rooms);
+
   let roomRange = "";
 
-  for (let i = 1; i < 43; i++) {
-    roomRange +=  `<option value=" + i + ">${i}</option>`;
-  }
-  return roomRange
-}
+  rooms.map(
+    (room, idx) =>
+      (roomRange += `<option value=" + ${room.id} + ">${idx+1}</option>`)
+  );
 
+  return roomRange;
+}

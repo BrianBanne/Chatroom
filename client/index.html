@@ -12,11 +12,13 @@
     <script type="module">
       import { createUser, getUsers } from "./api.js";
 
-      const form = document.getElementById("registerForm");
-      form.addEventListener("submit", handleSubmit);
-      
-      const getUsersButton = document.getElementById("getUsersBtn")
-      getUsersButton.addEventListener("click", handleGetUsers);
+      const registerForm = document.getElementById("registerForm");
+      registerForm.addEventListener("submit", handleSubmit);
+      /*const enterRoomForm = document.getElementById("enterRoomForm");
+      enterRoomForm.addEventListener("submit", handleEnterRoom);
+
+      const getUsersButton = document.getElementById("getUsersBtn");
+      getUsersButton.addEventListener("click", handleGetUsers);*/
 
       async function handleGetUsers() {
         const res = await getUsers();
@@ -25,20 +27,32 @@
       }
 
       async function handleSubmit() {
-        const name = document.getElementById("name").value;
-        const room = document.getElementById("room_id").value;
-        if (name === "") {
+        const name = document.getElementById("name");
+        if (name.value === "") {
           alert("You have to provide a name");
+          name.focus();
           return;
         }
-        const res = await createUser(name, room);
-
-        alert(res.message);
+        try {
+          const { message, data } = await createUser(name.value);
+          alert(message);
+          console.log(data);
+          if (typeof data !== "undefined") {
+            localStorage.removeItem("user");
+            localStorage.setItem("user", JSON.stringify(data));
+          }
+          /*setTimeout(() => {
+            window.location = "/choose-room";
+          }, 1000);*/
+        } catch (err) {
+          alert(err);
+          return;
+        }
       }
-    </script>
-    <script type="module">
-      import { getRoomRange } from "./scripts.js";
-      document.getElementById("room_id").innerHTML = getRoomRange();
+
+      function handleEnterRoom() {
+        window.location.hash = selectedRoom;
+      }
     </script>
 
     <h1>Chatteprogram</h1>
@@ -52,18 +66,18 @@
               <input type="text" id="name" name="name" />
             </label>
 
-            <label>
+            <!--  <label>
               Room:
               <select id="room_id"></select>
-            </label>
+            </label> -->
             <button type="submit">Create user</button>
           </form>
         </section>
-        <section>
+        <!--     <section>
           <h2>Users</h2>
           <button id="getUsersBtn">Show</button>
           <ul id="userList"></ul>
-        </section>
+        </section> -->
       </div>
     </main>
   </body>
