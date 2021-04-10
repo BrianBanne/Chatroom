@@ -1,36 +1,59 @@
 import connexion
+from flask import json
 from flask.json import jsonify
 import six
+from swagger_server.__main__ import ROOMS
 from swagger_server.controllers.room_controller import get_room
 from swagger_server.controllers.user_controller import get_user_from_id
 from swagger_server.models import room_messages, user
-from swagger_server.models.message import Message
 
 from swagger_server.models.room_messages import RoomMessages  # noqa: E501
 from swagger_server import util
-from swagger_server.models.user_messages import UserMessages
+from swagger_server.models.user_message import UserMessage
 
 room_messages = []
 
-def get_messages_from_id(room_id, user_id):  # noqa: E501
+def getMessagesFromList(messages):
+    print('arg', messages)
+    arr = []
+    for m in messages:
+        arr.append(m.messages)
+    print(arr)
+    return arr
+
+
+
+def get_messages_from_id(room_id):  # noqa: E501
     """room_room_id_messages_get
 
      # noqa: E501
 
     :param room_id: 
     :type room_id: str
-    :param room_id2: User must provide a name
-    :type room_id2: str
-
     :rtype: RoomMessages
     """
-    for message in room_messages:
-        if message.room().id() == room_id and message.messages().user().id() == user_id:
-            messages = message.messages()
-            return jsonify(messages)
-            
-    return jsonify(message="Can't retrieve messages")
+    #print('room', room_id)
+    #print('user', user_id)
 
+    user_id = connexion.request.headers['user_id']
+    if not user_id:
+        return 'Could not find user-id in header', 400
+
+    for message in room_messages:
+        print('roomid_', message.room.id)
+        print('message_id', message.messages[0].user.id)
+        if message.room.id == room_id:
+            for m in message.messages:
+                if m.user.id == user_id:
+                    #message_arr = getMessagesFromList(message.messages)
+                    return jsonify(message.messages)
+                    #return jsonify(message.messages)
+                     #return jsonify(message.messages)
+            
+        
+    return 'hei'
+
+#get_messages_from_id("111")
 
 def get_user_room_messages(room_id, user_id):  # noqa: E501
     """room_room_id_user_id_messages_get
@@ -44,7 +67,18 @@ def get_user_room_messages(room_id, user_id):  # noqa: E501
 
     :rtype: RoomMessages
     """
-    return 'do some magic!'
+
+    #validate user input
+    (isAuth, code) = util.authorizeRoomUser(user_id, room_id, ROOMS)
+    if not isAuth:
+        return 'Could not fetch users', code
+
+    for m in room_messages:
+        if m.room.id == room_id:
+            for n in m.messages:
+                if n.user.id == user_id:
+                    return jsonify(m.to_dict())
+    return 'Not messages in room yet', 200
 
 
 def post_room_message(room_id, user_id, message):  # noqa: E501
@@ -61,5 +95,25 @@ def post_room_message(room_id, user_id, message):  # noqa: E501
 
     :rtype: None
     """
-    new_message = RoomMessages(get_room(room_id), [UserMessages(get_user_from_id(user_id), [message])])
-    return jsonify(new_message.to_dict())
+
+    (isAuth, code) = util.authorizeRoomUser(user_id, room_id, ROOMS)
+    if not isAuth:
+        return 'Could not fetch users', code
+
+    new_message = UserMessage(get_user_from_id(user_id), message)
+    if len(room_messages) == 0:
+       room_messages.append(RoomMessages(get_room(room_id), [new_message]))
+    else:
+        for rm in room_messages:
+            if rm.room.id == room_id:
+                print('hei', rm.messages)
+                rm.messages.append(new_message)
+            else:
+                room_messages.append(RoomMessages(get_room(room_id), [new_message]))
+
+    for m in room_messages:
+        if m.room.id == room_id:
+            print(m)
+            return jsonify(m.to_dict())
+ 
+    return 'Could not post message', 400

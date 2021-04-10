@@ -6,10 +6,10 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.room import Room
-from swagger_server.models.user_messages import UserMessages
-
 from swagger_server import util
+from swagger_server.models.room import Room
+from swagger_server.models.user_message import UserMessage
+
 
 
 class RoomMessages(Model):
@@ -18,17 +18,17 @@ class RoomMessages(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, room: Room=None, messages: List[UserMessages]=None):  # noqa: E501
+    def __init__(self, room: Room=None, messages: List[UserMessage]=None):  # noqa: E501
         """RoomMessages - a model defined in Swagger
 
         :param room: The room of this RoomMessages.  # noqa: E501
         :type room: Room
         :param messages: The messages of this RoomMessages.  # noqa: E501
-        :type messages: List[UserMessages]
+        :type messages: List[UserMessage]
         """
         self.swagger_types = {
             'room': Room,
-            'messages': List[UserMessages]
+            'messages': List[UserMessage]
         }
 
         self.attribute_map = {
@@ -72,22 +72,22 @@ class RoomMessages(Model):
         self._room = room
 
     @property
-    def messages(self) -> List[UserMessages]:
+    def messages(self) -> List[UserMessage]:
         """Gets the messages of this RoomMessages.
 
 
         :return: The messages of this RoomMessages.
-        :rtype: List[UserMessages]
+        :rtype: List[UserMessage]
         """
         return self._messages
 
     @messages.setter
-    def messages(self, messages: List[UserMessages]):
+    def messages(self, messages: List[UserMessage]):
         """Sets the messages of this RoomMessages.
 
 
         :param messages: The messages of this RoomMessages.
-        :type messages: List[UserMessages]
+        :type messages: List[UserMessage]
         """
 
         self._messages = messages

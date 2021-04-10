@@ -6,9 +6,9 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.user import User
-
 from swagger_server import util
+from swagger_server.models.user import User
+from swagger_server.models.room import Room
 
 
 class RoomUsers(Model):
@@ -17,25 +17,25 @@ class RoomUsers(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, id: str=None, users: List[User]=None):  # noqa: E501
+    def __init__(self, room: Room=None, users: List[User]=None):  # noqa: E501
         """RoomUsers - a model defined in Swagger
 
-        :param id: The id of this RoomUsers.  # noqa: E501
-        :type id: str
+        :param room: The room of this RoomUsers.  # noqa: E501
+        :type room: Room
         :param users: The users of this RoomUsers.  # noqa: E501
         :type users: List[User]
         """
         self.swagger_types = {
-            'id': str,
+            'room': Room,
             'users': List[User]
         }
 
         self.attribute_map = {
-            'id': 'id',
+            'room': 'Room',
             'users': 'Users'
         }
 
-        self._id = id
+        self._room = room
         self._users = users
 
     @classmethod
@@ -50,25 +50,25 @@ class RoomUsers(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def id(self) -> str:
-        """Gets the id of this RoomUsers.
+    def room(self) -> Room:
+        """Gets the room of this RoomUsers.
 
 
-        :return: The id of this RoomUsers.
-        :rtype: str
+        :return: The room of this RoomUsers.
+        :rtype: Room
         """
-        return self._id
+        return self._room
 
-    @id.setter
-    def id(self, id: str):
-        """Sets the id of this RoomUsers.
+    @room.setter
+    def room(self, room: Room):
+        """Sets the room of this RoomUsers.
 
 
-        :param id: The id of this RoomUsers.
-        :type id: str
+        :param room: The room of this RoomUsers.
+        :type room: Room
         """
 
-        self._id = id
+        self._room = room
 
     @property
     def users(self) -> List[User]:

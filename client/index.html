@@ -11,6 +11,8 @@
   <body>
     <script type="module">
       import { createUser, getUsers } from "./api.js";
+      localStorage.removeItem("swagbot_user")
+      localStorage.removeItem("swagbot_room")
 
       const registerForm = document.getElementById("registerForm");
       registerForm.addEventListener("submit", handleSubmit);
@@ -26,24 +28,23 @@
         document.getElementById("userList").innerHTML = formattedUsers;
       }
 
-      async function handleSubmit() {
+      async function handleSubmit(e) {
+        e.preventDefault();
         const name = document.getElementById("name");
+        console.log(name.value)
         if (name.value === "") {
           alert("You have to provide a name");
           name.focus();
           return;
         }
         try {
-          const { message, data } = await createUser(name.value);
-          alert(message);
+          const { data } = await createUser(name.value);
           console.log(data);
           if (typeof data !== "undefined") {
-            localStorage.removeItem("user");
-            localStorage.setItem("user", JSON.stringify(data));
+            localStorage.removeItem("swagbot_user");
+            localStorage.setItem("swagbot_user", JSON.stringify(data));
           }
-          /*setTimeout(() => {
-            window.location = "/choose-room";
-          }, 1000);*/
+          window.location = 'choose-room'
         } catch (err) {
           alert(err);
           return;

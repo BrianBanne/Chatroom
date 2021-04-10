@@ -40,11 +40,10 @@ h1 {
 }
 
 .messages {
-  min-height: 150px;
+  height: 150px;
   overflow-y: scroll;
   background-color: aliceblue;
   text-align: left;
-
 }
 
 .form {

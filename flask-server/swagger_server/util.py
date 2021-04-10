@@ -2,6 +2,7 @@ import datetime
 
 import six
 import typing
+from flask import jsonify
 
 
 def _deserialize(data, klass):
@@ -139,3 +140,22 @@ def _deserialize_dict(data, boxed_type):
     """
     return {k: _deserialize(v, boxed_type)
             for k, v in six.iteritems(data)}
+
+def authorizeUser(user_id, room_id, USERS):
+    for user in USERS:
+        if user.id == user_id:  
+            return True, 200
+        else:
+            return False, 403
+    return False, 400
+
+def authorizeRoomUser(user_id, room_id, ROOMS):
+    for room in ROOMS:
+        if room.id == room_id:
+            for user in room.users:
+                if user.id == user_id:  
+                    users = room.users
+                    return True, 200
+            else:
+                return False, 403
+    return False, 400

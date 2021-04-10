@@ -19,19 +19,27 @@
       } from "./api.js";
       import { getAvailableRooms } from "./scripts.js";
 
-      try {
+      async function fetchRooms() {
         const { data: rooms } = await getRooms();
-        document.getElementById("room_id").innerHTML = getAvailableRooms(rooms);
-      } catch (err) {
-        alert(err);
+
+        if (rooms.length === 0) {
+          document.getElementById("joinRoomBtn").disabled = true;
+        } else {
+          document.getElementById("joinRoomBtn").disabled = false;
+          document.getElementById("room_id").innerHTML = getAvailableRooms(
+            rooms
+          );
+        }
       }
 
-      const { username, id: userId } = localStorage.getItem("user")
-        ? JSON.parse(localStorage.getItem("user"))
+      const { username, id: userId } = localStorage.getItem("swagbot_user")
+        ? JSON.parse(localStorage.getItem("swagbot_user"))
         : null;
-      console.log(localStorage.getItem("user"));
+      console.log(localStorage.getItem("swagbot_user"));
       document.getElementById("username").innerHTML =
         username !== undefined ? username : "";
+
+        fetchRooms()
 
       const pickRoomForm = document.getElementById("pickRoomForm");
       document
@@ -41,7 +49,10 @@
       pickRoomForm.addEventListener("submit", handleEnterRoom);
 
       async function handleEnterRoom() {
-        const selectedRoomId = document.getElementById("room_id").value;
+        const selectedRoomId = document
+          .getElementById("room_id")
+          .value.toString();
+        console.log(selectedRoomId);
         try {
           const res = await joinRoom(userId, selectedRoomId);
           goToRoom(selectedRoomId);
@@ -65,8 +76,8 @@
       }
 
       function goToRoom(roomId) {
-        localStorage.setItem("currentRoom", roomId);
-        window.location = "/room";
+        localStorage.setItem("swagbot_room", roomId);
+        window.location = `/room?id=${roomId}`;
       }
     </script>
 
@@ -88,7 +99,7 @@
                 Create a new room
               </button>
             </label>
-            <button type="submit">Go to room</button>
+            <button type="submit" id="joinRoomBtn">Join room</button>
           </form>
         </section>
       </div>

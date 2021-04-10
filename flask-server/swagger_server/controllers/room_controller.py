@@ -2,13 +2,13 @@ import connexion
 from flask.json import jsonify
 import six
 import uuid
+from swagger_server.__main__ import ROOMS
 from swagger_server.controllers.user_controller import get_user_from_id
 from swagger_server.models.room import Room  # noqa: E501
 from swagger_server.models.room_users import RoomUsers  # noqa: E501
 from swagger_server import util
-from swagger_server.models import base_model_
+from swagger_server.models import base_model_, user
 
-rooms = []
 
 def create_room(userId):  # noqa: E501
     """Creates a new room
@@ -20,9 +20,10 @@ def create_room(userId):  # noqa: E501
 
     :rtype: Room
     """
+    print(userId)
     new_room = Room(uuid.uuid4().hex, userId, [get_user_from_id(userId)])
-    rooms.append(new_room)
-    return jsonify(new_room)
+    ROOMS.append(new_room)
+    return jsonify(data=new_room)
 
 
 def get_room(id):  # noqa: E501
@@ -35,11 +36,10 @@ def get_room(id):  # noqa: E501
 
     :rtype: Room
     """
-    for room in rooms:
+    for room in ROOMS:
         if room.id == id:
             return room
-    return None
-
+    return 'Unable to get a room with provided id', 400
 
 def get_room_users(room_id):  # noqa: E501
     """get_room_users
@@ -51,8 +51,24 @@ def get_room_users(room_id):  # noqa: E501
 
     :rtype: RoomUsers
     """
-    users = get_room(room_id).users()
-    return 'do some magic!'
+
+    user_id = connexion.request.headers['user_id']
+    print('id from header:', user_id)
+    if not user_id:
+        return 'Could not find user-id in header', 401
+
+    (isAuth, code) =util.authorizeRoomUser(user_id, room_id, ROOMS)
+    if not isAuth:
+        return 'Could not fetch users', code
+    
+    for room in ROOMS:
+        if room.id == room_id:
+            for user in room.users:
+                if user.id == user_id:  
+                    return jsonify(room.users)
+    
+
+
 
 
 def get_rooms():  # noqa: E501
@@ -63,10 +79,10 @@ def get_rooms():  # noqa: E501
 
     :rtype: List[Room]
     """
-    deserialized_rooms = []
-    for room in rooms:
-        deserialized_rooms.append(room.to_dict())
-    return jsonify(deserialized_rooms)
+    room_info = []
+    for room in ROOMS:
+        room_info.append({'id': room.id, 'host_id': room.host_id})
+    return jsonify(data=ROOMS)
 
 
 def join_room(room_id, userId):  # noqa: E501
@@ -81,6 +97,7 @@ def join_room(room_id, userId):  # noqa: E501
 
     :rtype: RoomUsers
     """
+    print(room_id, userId)
     room = get_room(room_id)
     room.users.append(get_user_from_id(userId))
-    return jsonify(room.to_dict())
+    return jsonify(data=room.to_dict())

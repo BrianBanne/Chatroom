@@ -7,27 +7,27 @@ info:
 host: "localhost:8000"
 basePath: "/api"
 tags:
-- name: "user"
-  description: ""
-- name: "room"
-  description: ""
-- name: "message"
-  description: ""
+  - name: "user"
+    description: ""
+  - name: "room"
+    description: ""
+  - name: "message"
+    description: ""
 schemes:
-- "https"
-- "http"
+  - "https"
+  - "http"
 paths:
   /users:
     get:
       tags:
-      - "user"
+        - "user"
       summary: "Get all users"
       description: ""
       operationId: "get_all_users"
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         "200":
@@ -39,17 +39,17 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.user_controller"
     post:
       tags:
-      - "user"
+        - "user"
       summary: "Creates a new user"
       description: ""
       operationId: "add_user"
       parameters:
-      - in: "body"
-        name: "name"
-        description: "User must provide a name"
-        required: true
-        schema:
-          type: "string"
+        - in: "body"
+          name: "name"
+          description: "User must provide a name"
+          required: true
+          schema:
+            type: "string"
       responses:
         "201":
           description: "Created user"
@@ -63,20 +63,20 @@ paths:
   /user/{id}:
     get:
       tags:
-      - "user"
+        - "user"
       summary: "Get user from id"
       description: ""
       operationId: "get_user_from_id"
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "id"
-        in: "path"
-        description: "The id for the name needed"
-        required: true
-        type: "string"
+        - name: "id"
+          in: "path"
+          description: "The id for the name needed"
+          required: true
+          type: "string"
       responses:
         "200":
           description: "Returns single user"
@@ -87,20 +87,20 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.user_controller"
     delete:
       tags:
-      - "user"
+        - "user"
       summary: "Delete user from id"
       description: ""
       operationId: "delete_user_from_id"
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "id"
-        in: "path"
-        description: "The id for the name needed"
-        required: true
-        type: "string"
+        - name: "id"
+          in: "path"
+          description: "The id for the name needed"
+          required: true
+          type: "string"
       responses:
         "200":
           description: "Users deletetd"
@@ -110,14 +110,14 @@ paths:
   /rooms:
     get:
       tags:
-      - "room"
+        - "room"
       summary: "Get all rooms"
       description: ""
       operationId: "get_rooms"
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         "200":
@@ -131,17 +131,17 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.room_controller"
     post:
       tags:
-      - "room"
+        - "room"
       summary: "Creates a new room"
       description: ""
       operationId: "create_room"
       parameters:
-      - in: "body"
-        name: "userId"
-        description: "UserId need to create room"
-        required: true
-        schema:
-          type: "string"
+        - in: "body"
+          name: "userId"
+          description: "UserId need to create room"
+          required: true
+          schema:
+            type: "string"
       responses:
         "201":
           description: "Room successfully created"
@@ -153,20 +153,20 @@ paths:
   /rooms/{id}:
     get:
       tags:
-      - "room"
+        - "room"
       summary: "Get room from id"
       description: ""
       operationId: "get_room"
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "id"
-        in: "path"
-        description: "The room id"
-        required: true
-        type: "string"
+        - name: "id"
+          in: "path"
+          description: "The room id"
+          required: true
+          type: "string"
       responses:
         "200":
           description: "Single room from id"
@@ -178,14 +178,14 @@ paths:
   /room/{room_id}/users:
     get:
       tags:
-      - "room"
+        - "room"
       operationId: "get_room_users"
       parameters:
-      - name: "room_id"
-        in: "path"
-        description: "The id for the room needed"
-        required: true
-        type: "string"
+        - name: "room_id"
+          in: "path"
+          description: "The id for the room needed"
+          required: true
+          type: "string"
       responses:
         "200":
           description: "List of users in room"
@@ -196,19 +196,19 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.room_controller"
     post:
       tags:
-      - "room"
+        - "room"
       operationId: "join_room"
       parameters:
-      - name: "room_id"
-        in: "path"
-        description: "The id for the room needed"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "userId"
-        required: true
-        schema:
+        - name: "room_id"
+          in: "path"
+          description: "The id for the room needed"
+          required: true
           type: "string"
+        - in: "body"
+          name: "userId"
+          required: true
+          schema:
+            type: "string"
       responses:
         "201":
           description: "List of users in room"
@@ -220,22 +220,20 @@ paths:
   /room/{room_id}/messages:
     get:
       tags:
-      - "message"
+        - "message"
       operationId: "get_messages_from_id"
       parameters:
-      - name: "room_id"
-        in: "path"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "user_id"
-        description: "User must provide if"
-        required: true
-        schema:
+        - name: "room_id"
+          in: "path"
+          required: true
+          type: "string"
+        - name: "user_id"
+          in: "header"
+          required: true
           type: "string"
       responses:
         "200":
-          description: "Room successfully retrieved from id"
+          description: "Room messages"
           schema:
             $ref: "#/definitions/RoomMessages"
         "400":
@@ -244,19 +242,19 @@ paths:
   /room/{room_id}/{user_id}/messages:
     get:
       tags:
-      - "message"
+        - "message"
       operationId: "get_user_room_messages"
       parameters:
-      - name: "room_id"
-        in: "path"
-        description: "The id for the room needed"
-        required: true
-        type: "string"
-      - name: "user_id"
-        in: "path"
-        description: "The id for the user needed"
-        required: true
-        type: "string"
+        - name: "room_id"
+          in: "path"
+          description: "The id for the room needed"
+          required: true
+          type: "string"
+        - name: "user_id"
+          in: "path"
+          description: "The id for the user needed"
+          required: true
+          type: "string"
       responses:
         "200":
           description: "Room successfully retrieved from id"
@@ -267,25 +265,25 @@ paths:
       x-swagger-router-controller: "swagger_server.controllers.message_controller"
     post:
       tags:
-      - "message"
+        - "message"
       summary: "Post message in room"
       operationId: "post_room_message"
       parameters:
-      - name: "room_id"
-        in: "path"
-        description: "The id for the room needed"
-        required: true
-        type: "string"
-      - name: "user_id"
-        in: "path"
-        description: "The id for the user needed"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "message"
-        required: true
-        schema:
+        - name: "room_id"
+          in: "path"
+          description: "The id for the room needed"
+          required: true
           type: "string"
+        - name: "user_id"
+          in: "path"
+          description: "The id for the user needed"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "message"
+          required: true
+          schema:
+            type: "string"
       responses:
         "201":
           description: "Message posted"
@@ -311,29 +309,30 @@ definitions:
       hostId:
         type: "string"
       Users:
-        type: array
+        type: "array"
         items:
           $ref: "#/definitions/User"
     example:
       hostId: "hostId"
       id: "id"
-
   RoomUsers:
     type: "object"
     properties:
-      id:
-        type: "string"
+      Room:
+        $ref: "#/definitions/Room"
       Users:
         type: "array"
         items:
           $ref: "#/definitions/User"
     example:
-      id: "id"
       Users:
-      - id: "id"
-        username: "username"
-      - id: "id"
-        username: "username"
+        - id: "id"
+          username: "username"
+        - id: "id"
+          username: "username"
+      Room:
+        hostId: "hostId"
+        id: "id"
   RoomMessages:
     type: "object"
     properties:
@@ -342,53 +341,33 @@ definitions:
       Messages:
         type: "array"
         items:
-          $ref: "#/definitions/UserMessages"
+          $ref: "#/definitions/UserMessage"
     example:
       Messages:
-      - User:
-          id: "id"
-          username: "username"
-        Messages:
-        - Text: "Text"
-          id: "id"
-        - Text: "Text"
-          id: "id"
-      - User:
-          id: "id"
-          username: "username"
-        Messages:
-        - Text: "Text"
-          id: "id"
-        - Text: "Text"
-          id: "id"
+        - User:
+            id: "id"
+            username: "username"
+          Message: "{}"
+        - User:
+            id: "id"
+            username: "username"
+          Message: "{}"
       room:
         hostId: "hostId"
         id: "id"
-  UserMessages:
+  UserMessage:
     type: "object"
     properties:
       User:
         $ref: "#/definitions/User"
-      Messages:
-        type: "array"
-        items:
-          $ref: "#/definitions/Message"
-    example:
-      User:
-        id: "id"
-        username: "username"
-      Messages:
-      - Text: "Text"
-        id: "id"
-      - Text: "Text"
-        id: "id"
+      Message:
+        $ref: "#/definitions/Message"
   Message:
     type: "object"
     properties:
       id:
         type: "string"
+      Datestamp:
+        type: "string"
       Text:
         type: "string"
-    example:
-      Text: "Text"
-      id: "id"

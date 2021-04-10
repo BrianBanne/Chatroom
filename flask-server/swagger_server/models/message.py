@@ -15,25 +15,30 @@ class Message(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, id: str=None, text: str=None):  # noqa: E501
+    def __init__(self, id: str=None, datestamp: str=None, text: str=None):  # noqa: E501
         """Message - a model defined in Swagger
 
         :param id: The id of this Message.  # noqa: E501
         :type id: str
+        :param datestamp: The datestamp of this Message.  # noqa: E501
+        :type datestamp: str
         :param text: The text of this Message.  # noqa: E501
         :type text: str
         """
         self.swagger_types = {
             'id': str,
+            'datestamp': str,
             'text': str
         }
 
         self.attribute_map = {
             'id': 'id',
+            'datestamp': 'Datestamp',
             'text': 'Text'
         }
 
         self._id = id
+        self._datestamp = datestamp
         self._text = text
 
     @classmethod
@@ -67,6 +72,27 @@ class Message(Model):
         """
 
         self._id = id
+
+    @property
+    def datestamp(self) -> str:
+        """Gets the datestamp of this Message.
+
+
+        :return: The datestamp of this Message.
+        :rtype: str
+        """
+        return self._datestamp
+
+    @datestamp.setter
+    def datestamp(self, datestamp: str):
+        """Sets the datestamp of this Message.
+
+
+        :param datestamp: The datestamp of this Message.
+        :type datestamp: str
+        """
+
+        self._datestamp = datestamp
 
     @property
     def text(self) -> str:

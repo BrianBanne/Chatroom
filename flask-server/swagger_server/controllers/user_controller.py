@@ -1,12 +1,12 @@
 import connexion
 import six
+from swagger_server.__main__ import USERS
 
 from swagger_server.models.user import User  # noqa: E501
 from swagger_server import util
 from flask import jsonify
 import uuid
 
-users = []
 
 def add_user(name):  # noqa: E501
     """Creates a new user
@@ -20,8 +20,8 @@ def add_user(name):  # noqa: E501
     """
     print(name)
     new_user = User(uuid.uuid4().hex, name)
-    users.append(new_user)
-    return jsonify(new_user.to_dict())
+    USERS.append(new_user)
+    return jsonify(data=new_user.to_dict())
 
 
 def delete_user_from_id(id):  # noqa: E501
@@ -34,7 +34,7 @@ def delete_user_from_id(id):  # noqa: E501
 
     :rtype: None
     """
-    for user in users:
+    for user in USERS:
         if (user.id() == id):
             del user
             return jsonify(message="User removed")
@@ -49,7 +49,10 @@ def get_all_users():  # noqa: E501
 
     :rtype: List[User]
     """
-    return 'do some magic!'
+    userlist = []
+    for user in USERS:
+        userlist.append(user.to_dict())
+    return jsonify(data=userlist)
 
 
 def get_user_from_id(id):  # noqa: E501
@@ -62,7 +65,7 @@ def get_user_from_id(id):  # noqa: E501
 
     :rtype: User
     """
-    for user in users:
+    for user in USERS:
         if user.id == id:
             return user
     return None
