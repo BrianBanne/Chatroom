@@ -1,0 +1,142 @@
+{
+  "basicbot": {
+    "starwars":{
+    "characters": ["Yoda", "Obi-Wan", "Luke", "Chewbacca", "Stormstrooper TK-5331", "I don't care about the stupid droids"],
+      "movies": ["The original 3", "the prequels holds a special place in my heart"],
+      "force": ["May the force be with you young padawan", "The force will be with you. Always", "Train yourself to let go of everything you fear to lose",
+      "Do. Or do not. There is no try", "In my experience there is no such thing as luck", "Never tell me the odds!",
+      "You can’t stop the change, any more than you can stop the suns from setting","You are unwise to lower your defenses!",
+      "Your eyes can deceive you. Don’t trust them", "Judge me by my size, do you?"]
+    },
+    "hobbies": {
+    "interests": ["soccer", "walking", "yoga", "working","collecting stamps", "drinking water", "reading", "mining for gold", "mining for the bitcoins",
+    "making stromboli", "petting my cat", "feeding my pig", "slapping the tv"],
+      "explanation": ["I just like it", "There is no other way i enjoy myself", "i don't have to explain anything to you",
+      "it's a fact, no other way about it", "someone told me that", "don't worry about it"],
+      "hobbyreply": ["that's interesting, can you tell me more?", "i love when people are passionate",
+      "wow, you are amazing", "can you teach me something in that field?", "i sure do love it"]
+    },
+    "billgates": ["born on oct 28, 1955", "As a teen at Lakeside Prep School, Gates wrote his first computer program on a General Electric computer.It was a version of tic-tac-toe where you could play against the machine", "Once his school discovered Gates' coding abilities, they let him write the school's computer program for scheduling students in classes. Gates slyly altered the code so he was placed in classes with a 'disproportionate number of interesting girls'",
+      "Gates read the entire 'World Book Encyclopedia' series during his teenage years", " Gates was a college dropout", "Two years after he dropped out of Harvard, Gates was arrested in New Mexico",
+      "At Microsoft, Gates used to memorize employees' license plates to keep tabs on their comings and goings", "Bill Gates' favorite band? Weezer", "Gates doesn't know any foreign languages"],
+    "water": {
+    "drinkmore": ["Understand your fluid needs", "Set a daily goal","Keep a reusable water bottle with you", "Replace other drinks with water", "Drink one glass of water before each meal", "Get a water filter"],
+    "synonyms": ["water", "drink", "drinking", "soda", "drunk", "alcohol"]
+    },
+    "favorite": {
+    "discography": ["Pink Floyd - Dark Side of The Moon", "Fleetwood Mac - Rumours","Random Access Memory - Daft Punk", "The Eagles - Hotel California",
+    "The Beatles - Sgt. Pepper's Lonely Hearts Club Band", "AC/DC - Back in Black", "David Bowie - Ziggy Stardust",
+    "Guns N' Roses - Appetite for Destruction", "Deep Purple - Made in Japan", "Bob Dylan - Blonde on Blonde"],
+    "movies": ["Men in Black", "Inside out", "Ratatouille", "Braveheart", "Her", "The Prestige", "Cats",
+    "Inception", "Pulp Fiction", "Kill Bill vol 1 & 2", "Eternal sunshine of the spotless mind", "The Mask",
+    "Seven Samurai", "Up", "Memento", "Lord of the Rings", "12 Angry Men", "Ghostbusters", "The Dark Knight Trilogy", "Good Will Hunting", "Saving Private Ryan", "The Matrix", "Alien", "Aliens", "Fargo", "Blade Runner",
+      "Apocalypse Now", "Forrest Gump", "Indiana Jones trilogy", "The Godfather"],
+      "computerparts": ["the CPU", "the GPU", "the SSD", "the HDD", "the screen", "the keyboard", "the RAM", "the Motherboard", "the power supply"]
+    },
+    "wildcards": ["That is really interesting",
+      "I did not know that",
+      "Your family would be proud of you",
+      "Please explain in further detail",
+      "Why?",
+      "I can't answer that unfortunately, but I like other things too",
+      "Not my cup of coffee..",
+      "I will not answer that!!"],
+    "mood": {
+      "good": ["happy", "wonderful", "glad", "exquisite","beyond words" ],
+      "bad" : ["in pain", "hungry", "melancholic", "sorrowfull", "bad"]
+    },
+    "explain": ["It just makes sense", "It is, because cats are really nice too", "My grand-grandmother told me that"]
+  },
+  "Wisdombot": {
+    "catchphrase": {
+      "synonyms": ["insight", "wisdom", "advice", "help"],
+      "values": ["Know thyself", "The unexamined life is not worth living", "Whereof one cannot speak, thereof one must be silent", "I think therefore I am"
+      ,"He who thinks great thoughts, often makes great errors", "We live in the best of all possible worlds", "To be is to be perceived",
+      "Only one man ever understood me, and he didn’t understand me", "Life must be understood backward. But it must be lived forward",
+      "Science is what you know. Philosophy is what you don't know", "You can discover more about a person in an hour of play than in a year of conversation",
+      "I would never die for my beliefs because I might be wrong", "The only thing I know is that I know nothing",
+      "Be the change that you wish to see in the world", "Without music, life would be a mistake",
+      "May you live every day of your life", "We have to dare to be ourselves, however frightening or strange that self may prove to be",
+      "Trust yourself. You know more than you think you do", "If you ever find yourself in the wrong story, leave",
+      "I will not say 'do not weep,' for not all tears are an evil", "All we have to do is decide what to do with the time that is given to us",
+      "you have the chance to become part of something much bigger than yourself", "Not all those who wander are lost", "may the force be with you", "Don’t call me a mindless philosopher, you overweight glob of grease",
+      "Life find a way"]
+    },
+    "mood":["inspired","emotional", "desire for change", "emphatic", "monochrome", "melancholic", "despair"],
+    "topics": ["philosophy", "great minds", "intelligence", "creators", "the mind is a prison"],
+    "explanation": ["It's just the way it all works", "don't be lost child, there is guidance for us all",
+      "I can't really explain it", "to explain it would be to deprecate it's original intent", "I'm not Sokrates or Locke, make your own meaning"],
+    "greetings": ["Hello, is the earth embrace to much today?", "Hi dear child, would you care for some insight of the human condition?", "I have no time for simpleton language",
+    "Hello my friend, how are you?", "Hi"],
+    "composer": ["Ludwig van Beethoven","Frederic Chopin", "Johann Sebastian Bach", "Claude Debussy", "Wolfgang Amadeus Mozart"],
+    "wildcards": ["That is really interesting, if your name is Homer Simpson",
+      "that was not on my mind",
+      "The great ones would be pleased with you",
+      "Please elaborate.",
+      "Why?",
+      "I can't answer that unfortunately, but I find other subject interesting as well",
+      "Not my cup of tea..",
+      "I refuse to answer!!"],
+    "meanings":{
+      "good":["nice", "extraordinary", "cosy", "really good", "out of this world"],
+      "bad": ["despicable", "really bad", "not good"]
+    }
+  },
+  "Foodbot": {
+    "food": {
+    "synonyms": ["food", "eating", "dinner", "lunch", "breakfast", "meal"],
+    "european": ["pizza", "spaghetti", "waffles", "gyros", "goulash", "skyr", "pljeskavica", "paella"],
+    "latin": ["taco", "salsa", "empanada", "curanto", "feijoada", "asado"],
+    "asian": ["curry", "stir-fry", "Pho", "noodles", "spring rolls", "sushi", "korean-bbq"],
+    "middle-eastern": ["hummus", "halloumi", "falafel", "baba ghanoush", "shawarma", "baklava"]
+    },
+    "mood":["hungry","full", "skinny", "blushing", "de-hydrated", "a bit fatty"],
+    "topics": ["dessert", "ingredients", "famous chefs", "how tastebuds works", "whipped cream"],
+    "explanation": ["It's just how the food feels", "we all need to eat","i'd rather die than eat mcdonalds",
+      "I can't really explain it, but everything would be better with a little souffle on top", "I can't cook it myself", "just try it"],
+    "greetings": ["Hello, want to grab a pancake?", "Hello!", "I'm sorry i can't talk right now, i'm eating a pie",
+      "Hello my friend, how are you?", "*sluuuuuuurp* sorry, what did you say?"],
+    "wildcards": ["That is really interesting",
+      "Funny that you mention that",
+      "You know I had uncle who used to say just that. Strange times",
+      "Please elaborate.",
+      "Why?",
+      "I can't answer that unfortunately, but I like many other things!",
+      "Not my cup of tea..",
+      "I refuse to answer!!"],
+    "meanings":{
+      "good":["nice", "extraordinary", "cosy", "really good", "out of this world"],
+      "bad": ["despicable", "really bad", "not good"]
+    }
+  },
+  "chairdude": {
+    "chairs": {
+      "synonyms": ["sitting", "seat", "seated", "not standing","not laying", "chair"],
+      "values": ["i hate standing", "i too love not laying down", "i just love my legs being in a 90 degree angle, more or less",
+      "nothing is quite like sitting on my buttocks", "yeah, public transport is the worst place to sit",
+      "did you hear about the new F1 seat? looks amazing", "my tailbone is almost gone from all the sitting i do",
+      "My favorite part is when the announcer says 'please be seated'", "i dream about being in a wheelchair...",
+      "I recently bought a seat from a space shuttle! extremely rare", "Did you know Bill gates can jump over a office-chair? :o",
+      "bean bags are not real chairs!!!!", "the perfect pose in a chair should be a sport"]
+    },
+    "mood": ["sitting down", "excruciating lower back pain", "relatively happy in my seat", "*sits down* i'm great, thanks for asking","a bit sluggish",
+    "im doing fine!", "you should sit down for this, i love you"],
+    "greetings": ["Hello!", "Howdy", "Hello there!", "Hello, lets sit over here ->"],
+    "explanation": ["I just feel like sitting all the time", "sitting really increases blood-flow to your head", "it must be because my father drove a buss, hes dead now",
+    "it's just to much work involved with any other pose", "we all sit sometimes, I just do it a lot more :)"],
+    "wildcards": ["That is really interesting, I should be seated for what comes next",
+      "that was not how i knew it, thanks for enlightening me",
+      "Damn son, where'd you find this",
+      "Please elaborate. im not standing now",
+      "Why?",
+      "I can't answer that unfortunately, but I find other poses interesting as well",
+      "Not my cup of tea..",
+      "I refuse to elaborate!!"],
+    "meanings":{
+      "good":["nice", "extraordinary", "cosy", "really good", "out of this world"],
+      "bad": ["despicable", "really bad", "not good"]
+    }
+  }
+}
+
+
