@@ -21,12 +21,11 @@ async function handleSubmit(e) {
     return;
   }
   try {
-    const { data } = await createUser(name.value);
+    const data = await createUser(name.value);
     console.log(data);
-    if (typeof data !== "undefined") {
-      localStorage.removeItem("swagbot_user");
-      localStorage.setItem("swagbot_user", JSON.stringify(data));
-    }
+    localStorage.removeItem("swagbot_user");
+    localStorage.setItem("swagbot_user", JSON.stringify(data));
+
     window.location = "pick-room";
   } catch (err) {
     alert(err);

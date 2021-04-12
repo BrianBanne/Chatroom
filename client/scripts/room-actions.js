@@ -51,6 +51,23 @@ function updateMessageView(messages) {
   document.getElementById("messageContainer").innerHTML = formattedMessages;
 }
 
+function addBots(quantity) {
+    switch (quantity) {
+    case 1:
+        //add 1 bot
+    case 2:
+        //add two bots
+    case 3:
+        // add three
+
+    case 4:
+        //add four bouts
+        
+    }
+
+
+}
+
 export function getUserList(users) {
     let userList = ""
     users.map((user, idx) => (userList += `<li >${user.username}</li>`));

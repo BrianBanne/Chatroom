@@ -3,7 +3,7 @@ import { createRoom, getRooms, joinRoom } from "../api.js";
 async function fetchRooms() {
   const { data: rooms } = await getRooms();
 
-  if (rooms.length === 0) {
+  if (typeof rooms === "undefined" || rooms.length === 0) {
     document.getElementById("joinRoomBtn").disabled = true;
   } else {
     document.getElementById("joinRoomBtn").disabled = false;
@@ -11,10 +11,10 @@ async function fetchRooms() {
   }
 }
 
-const { username, id: userId } = localStorage.getItem("swagbot_user")
-  ? JSON.parse(localStorage.getItem("swagbot_user"))
-  : null;
-console.log(localStorage.getItem("swagbot_user"));
+const user = JSON.parse(localStorage.getItem("swagbot_user"))
+
+const { username, id: userId } = user
+
 document.getElementById("username").innerHTML =
   username !== undefined ? username : "";
 
@@ -42,11 +42,9 @@ console.log("pre", userId);
 
 async function handleCreateRoom() {
   try {
-    const {
-      data: { id },
-    } = await createRoom(userId);
+    const room = await createRoom(userId);
     alert("Room succesfully created!");
-    goToRoom(id);
+    goToRoom(room.id);
   } catch (err) {
     alert(err);
   }
@@ -57,16 +55,13 @@ function goToRoom(roomId) {
   window.location = `/room?id=${roomId}`;
 }
 
-
 export function getAvailableRooms(rooms) {
-    let roomRange = "";
-  
-    rooms.map(
-      (room, idx) =>
-        (roomRange += `<option value="${room.id}">${idx + 1}</option>`)
-    );
-  
-    return roomRange;
-  }
-  
-  
+  let roomRange = "";
+
+  rooms.map(
+    (room, idx) =>
+      (roomRange += `<option value="${room.id}">${idx + 1}</option>`)
+  );
+
+  return roomRange;
+}
