@@ -23,7 +23,7 @@ def create_room(userId):  # noqa: E501
     print(userId)
     new_room = Room(uuid.uuid4().hex, userId, [get_user_from_id(userId)])
     ROOMS.append(new_room)
-    return jsonify(data=new_room)
+    return jsonify(new_room)
 
 
 def get_room(id):  # noqa: E501
@@ -82,7 +82,7 @@ def get_rooms():  # noqa: E501
     room_info = []
     for room in ROOMS:
         room_info.append({'id': room.id, 'host_id': room.host_id})
-    return jsonify(data=ROOMS)
+    return jsonify(ROOMS)
 
 
 def join_room(room_id, userId):  # noqa: E501
@@ -100,4 +100,4 @@ def join_room(room_id, userId):  # noqa: E501
     print(room_id, userId)
     room = get_room(room_id)
     room.users.append(get_user_from_id(userId))
-    return jsonify(data=room.to_dict())
+    return jsonify(room.to_dict())
