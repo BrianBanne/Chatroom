@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require('body-parser')
 const app = express();
 const apiRoutes = require("./routes");
 PORT = 8000;

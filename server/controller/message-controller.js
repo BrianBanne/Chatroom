@@ -1,12 +1,16 @@
 const { ROOMS } = require("../database");
 
-function getMessagesFromList(messages) {
-  /* print('arg', messages)
-arr = []
-for (m in messages):
-    arr.append(m.messages)
-print(arr)
-return arr */
+function getMessagesFromList(req, res) {
+  const message = req.params.message;
+  console.log("arg", message);
+  let arr = [];
+  for (let m in message) {
+    arr.append(m.message);
+  }
+  console.log(arr);
+  //return arr;
+
+  return res.status(200).json({ messages: message });
 }
 
 function getMessagesFromRoomId(req, res) {
@@ -31,4 +35,4 @@ function getMessagesFromRoomId(req, res) {
   return res.status(200).json({ roomId: roomId });
 }
 
-module.exports = { getMessagesFromRoomId };
+module.exports = { getMessagesFromRoomId, getMessagesFromList };

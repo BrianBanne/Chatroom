@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const { getMessagesFromRoomId } = require("./controller/message-controller");
-const {add_user, get_all_users} = require('./controller/user_controller')
+const { getMessagesFromRoomId, getMessagesFromList } = require("./controller/message-controller");
+const {add_user, get_all_users, delete_user_from_id } = require('./controller/user_controller')
 const { ROOMS } = require("./database");
 
 //User routes
 router.post("/users", add_user); //create one user, req.body
 router.get("/users", get_all_users); //get all users - brianmade
-router.delete("users/:id"); //delete user from req.param
+router.delete("users/:id", delete_user_from_id); //delete user from req.param
 
 //Room Routes
 router.get("/rooms", (req, res) => {

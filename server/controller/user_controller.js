@@ -4,7 +4,7 @@ const User = require('../models/user')
 function add_user(req, res) {
   const username = req.body.name;
   console.log(username);
-  let newuser = new User(username); //????
+  let newuser = new User(username);
   USERS.push(newuser);
 
   return res.status(200).json({ username: newuser.username, userId:  newuser.userId });
@@ -38,7 +38,7 @@ function get_all_users(req, res) {
 
 function get_user_from_id(req, res) {
   const userId = req.params.id;
-  for (user in USERS) {
+  for (let user in USERS) {
     if (user.id === userId) {
       return user;
     }
