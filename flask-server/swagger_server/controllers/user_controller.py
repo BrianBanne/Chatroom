@@ -21,7 +21,7 @@ def add_user(name):  # noqa: E501
     print(name)
     new_user = User(uuid.uuid4().hex, name)
     USERS.append(new_user)
-    return jsonify(data=new_user.to_dict())
+    return jsonify(new_user.to_dict())
 
 
 def delete_user_from_id(id):  # noqa: E501
@@ -52,7 +52,7 @@ def get_all_users():  # noqa: E501
     userlist = []
     for user in USERS:
         userlist.append(user.to_dict())
-    return jsonify(data=userlist)
+    return jsonify(userlist)
 
 
 def get_user_from_id(id):  # noqa: E501

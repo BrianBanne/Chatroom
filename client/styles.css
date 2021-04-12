@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box
+}
+
 body {
   background-color: thistle;
   width: 100%;
@@ -6,7 +10,13 @@ body {
 main {
   max-width: 920px;
   margin: 0 auto;
+  margin-top: 5rem;
   text-align: center;
+}
+
+nav {
+  margin: 1rem; 
+  text-align:left;
 }
 
 h1 {
@@ -18,7 +28,7 @@ h1 {
   min-height: 300px;
   align-items: center;
   justify-content: center;
-  border: solid;
+  flex-direction: row;
 }
 
 .contact-list {
@@ -47,7 +57,9 @@ h1 {
 }
 
 .form {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items:baseline;
 }
 
 .form label {
@@ -58,4 +70,31 @@ h1 {
 .form * {
   margin: 0.5rem auto;
   display: block;
+}
+
+.form_section {
+
+}
+
+.messageForm {
+  margin-top: 1rem;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.sendBtn {
+  display: inline-block;
+  margin: 0;
+  padding: 10px 0;
+  height: 100%;
+  width: 50px;
+  background-color: grey;
+  border: none;
+}
+
+.sendBtn:hover {
+  cursor: pointer;
+
 }

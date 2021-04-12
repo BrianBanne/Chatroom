@@ -6,58 +6,13 @@
     <title>Oblig 2</title>
     <meta name="description" content="Oblig 2" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" href="#" />
+    <script src="./scripts/create-user.js" type="module"></script>
   </head>
 
   <body>
-    <script type="module">
-      import { createUser, getUsers } from "./api.js";
-      localStorage.removeItem("swagbot_user")
-      localStorage.removeItem("swagbot_room")
-
-      const registerForm = document.getElementById("registerForm");
-      registerForm.addEventListener("submit", handleSubmit);
-      /*const enterRoomForm = document.getElementById("enterRoomForm");
-      enterRoomForm.addEventListener("submit", handleEnterRoom);
-
-      const getUsersButton = document.getElementById("getUsersBtn");
-      getUsersButton.addEventListener("click", handleGetUsers);*/
-
-      async function handleGetUsers() {
-        const res = await getUsers();
-        const formattedUsers = res.users.map((user) => `<li>${user.name}</li>`);
-        document.getElementById("userList").innerHTML = formattedUsers;
-      }
-
-      async function handleSubmit(e) {
-        e.preventDefault();
-        const name = document.getElementById("name");
-        console.log(name.value)
-        if (name.value === "") {
-          alert("You have to provide a name");
-          name.focus();
-          return;
-        }
-        try {
-          const { data } = await createUser(name.value);
-          console.log(data);
-          if (typeof data !== "undefined") {
-            localStorage.removeItem("swagbot_user");
-            localStorage.setItem("swagbot_user", JSON.stringify(data));
-          }
-          window.location = 'choose-room'
-        } catch (err) {
-          alert(err);
-          return;
-        }
-      }
-
-      function handleEnterRoom() {
-        window.location.hash = selectedRoom;
-      }
-    </script>
-
-    <h1>Chatteprogram</h1>
     <main>
+      <h1>Swagbots </h1>
       <div class="container">
         <section class="form">
           <h2>Register</h2>

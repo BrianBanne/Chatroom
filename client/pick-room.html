@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Choose a room</title>
+    <meta name="description" content="Oblig 2" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" href="#" />
+    <script src="./scripts/create-room.js" type="module"></script>
+  </head>
+
+  <body>
+    <main>
+      <h1>Pick a room</h1>
+      <nav><a href="/">Go back</a></nav>
+
+      <div class="container" style="flex-direction: column;">
+        <h2>Hi <span id="username"></span>, pick a room  </h2>
+        <form id="pickRoomForm" onsubmit="return false" class="form">
+          <div class="form_section">
+            <label>
+              Pick an existing rooms:
+              <select id="room_id"></select>
+            </label>
+            <button type="submit" id="joinRoomBtn">Join room</button>
+          </div>
+          <div class="form_section">
+            <label>
+              or create a new:
+              <button type="button" id="createRoomButton">
+                Create a new room
+              </button>
+            </label>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
