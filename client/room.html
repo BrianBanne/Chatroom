@@ -18,7 +18,21 @@
         <div class="contact-list">
           <h2>Users in room</h2>
           <ul id="user-list"></ul>
-          <button id="logoutBtn">Log off room</button>
+          <button id="logoutBtn">Leave room</button>
+          <div class="botsettings">
+            <form id="joinRoom" ></form>
+            <label for="bots">Add # of bots:</label>
+            <!-- legge til en funksjon som tar antall bots fra "bots" og legger til tilfeldige(?) bots-->
+            <select name="bots" id="bots">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+            <br><br>
+            <input type="submit" value="Add">
+          </div>
+
         </div>
         <div class="chat-window">
           <div class="input">
