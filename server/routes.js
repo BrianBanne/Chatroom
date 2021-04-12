@@ -2,9 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const { getMessageFromRoomId } = require("./controller/message-controller");
+const { get_all_users } = require("./controller/user_controller");
+const { add_user } = require("./controller/user_controller");
 
 //User routes
-router.post("/users"); //create one user, req.body
+router.post("/users", add_user(name)); //create one user, req.body
+router.get("/users", get_all_users); //get all users - brianmade
 router.get("/users", (req, res) => res.json("Test test")); //fetch  all users
 router.delete("users/:id"); //delete user from req.param
 
