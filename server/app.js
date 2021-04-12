@@ -4,6 +4,8 @@ const apiRoutes = require("./routes");
 PORT = 8000;
 
 const User = require('./models/user')
+const Room = require('./models/room')
+
 
 app.get("/", (req, res) => {
   res.json("This is the server");
@@ -17,8 +19,16 @@ app.listen(8000, () => console.log(`Server is listening at port ${PORT}`));
 
 const user1 = new User('Hans')
 const user2 = new User('Brian')
-console.log(user1.getUser());
-console.log(user2.getUser());
+
+const room = new Room('Det kule roomet')
+room.addUser(user1.userId)
+room.addUser(user2.userId)
+room.addMessage(user1.userId, 'Hei hei')
+room.addMessage(user1.userId, 'God dag ')
+room.addMessage(user2.userId, 'Heisann')
+ 
+console.log('get', room.getMessages());
+//console.log('rom', room);
 
 const ROOMS = [];
 const USERS = [];
