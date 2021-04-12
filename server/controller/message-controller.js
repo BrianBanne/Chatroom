@@ -1,4 +1,4 @@
-const { ROOMS } = require("../app");
+const { ROOMS } = require("../database");
 
 function getMessagesFromList(messages) {
   /* print('arg', messages)
@@ -9,8 +9,13 @@ print(arr)
 return arr */
 }
 
-function getMessageFromRoomId(req, res) {
+function getMessagesFromRoomId(req, res) {
   const roomId = req.params.id;
+  for (room in ROOMS) {
+    if (room.id === roomId) {
+      room.getMessages();
+    }
+  }
 
   /*  for message in ROOMS:
        
@@ -26,4 +31,4 @@ function getMessageFromRoomId(req, res) {
   return res.status(200).json({ roomId: roomId });
 }
 
-module.exports = { getMessageFromRoomId };
+module.exports = { getMessagesFromRoomId };
