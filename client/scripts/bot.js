@@ -1,10 +1,13 @@
 import { createUser, getRoomMessages, joinRoom, sendMessage } from "../api.js";
-
+import * as data from '../botinfo.json';
 class Bot {
   constructor(name, roomId) {
     this.name = name;
     this.id = "";
     this.roomId = roomId;
+    //if name == blabla this.options = custom shit for hver bot
+    //custom for each json thingy
+    this.greetings = data.Foodbot.greetings;
     this.options = ["Hello", "How are you", "Im fine", "Fockk off", 'Wazzao', 'Im tired', 'Jadda', 'Hurray', 'I love ndoe', 'I love Java'];
   }
 
