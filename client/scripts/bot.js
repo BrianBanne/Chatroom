@@ -12,7 +12,7 @@ class Bot {
         console.log(file);
         name = self.name.lower(); //???
 
-        let botdata = {};
+        let botdata;
 
 
         if (name === "Wisdombot" || name === "Foodbot" || name === "chairdude") {
