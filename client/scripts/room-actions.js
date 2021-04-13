@@ -1,4 +1,4 @@
-import { getRoomUsers, sendMessage, getRoomMessages } from "../api.js";
+import {getRoomUsers, sendMessage, getRoomMessages, createUser, createRoom, joinRoom, getRooms} from "../api.js";
 import data from '../botinfo.json';
 
 const User = require("./models/user");
@@ -55,40 +55,57 @@ function updateMessageView(messages) {
 
   document.getElementById("messageContainer").innerHTML = formattedMessages;
 }
+
+function getrandomelement(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
 //add bots for each swtich case, and makes a room for them to be in
-function addBots(quantity) {
+async function addBots(quantity, roomId) {
   const word = data;
-  const Foodbot = new User("Foodbot");
-  const Chairbot = new User("Chairbot");
-  const Wisdombot = new User("Wisdombot");
-  const Basicbot = new User("Basicbot");
+  const bot1 = createUser("Foodbot");
+  const bot2 = createUser("Chairbot");
+  const bot3 = createUser("Wisdombot");
+  const bot4 = createUser("Basicbot");
+  /* read from messages
+    if (read.includes("hello")) {
+      await sendMessage(roomId, userId, word.Foodbot.greetings)
+    }
+     */
+
   switch (quantity) {
     case 1:
-    const room1 = new Room("BotRoom1");
-    room1.addUser(Foodbot);
-      room1.addMessage(Foodbot, word.Foodbot.greetings);
+      //ikke så viktig med deg
+        /*
+    const {room} = createRoom(bot1.userId, roomId);
+    const {rooms} = getRooms();
+      if (rooms.length !== 0) {
+        await joinRoom(bot1.userId, room.id);
+      }
+         */
+
+    const {join} = joinRoom(bot1.userId, roomId);
+    const {read} = await getRoomMessages(roomId, bot1.userId);
+    const {messages} = await sendMessage(roomId, userId, getrandomelement(word.Foodbot.greetings));
+      updateMessageView(messages);
+      sendMessandUpdate("hello");
+
+      setTimeout(function(){}, 1000);
     case 2:
     //add two bots
-      const room2 = new Room("BotRoom2");
-      room2.addUser(Foodbot, Chairbot);
-      room2.addMessage(Foodbot, word.Foodbot.greetings);
-      room2.addMessage(Chairbot, word.Chairbot.greetings);
+      await createRoom(userId, "Room2");
+
     case 3:
     // add three
-      const room3 = new Room("BotRoom3");
-      room3.addUser(Foodbot, Chairbot, Wisdombot);
-      room3.addMessage(Chairbot, word.Chairbot.greetings);
-      room3.addMessage(Wisdombot, word.Wisdombot.greetings);
-      room3.addMessage(Foodbot, word.Foodbot.greetings);
+      createRoom(userId, "Room3")
+
+
 
     case 4:
     //add four bouts
-      const room4 = new Room("BotRoom4");
-      room4.addUser(Foodbot, Chairbot, Wisdombot, Basicbot);
-      room4.addMessage(Chairbot, word.Chairbot.greetings);
-      room4.addMessage(Wisdombot, word.Wisdombot.greetings);
-      room4.addMessage(Foodbot, word.Foodbot.greetings);
-      room4.addMessage(Basicbot, word.basicbot.billgates);
+      createRoom(userId, "Room4")
+
+
   }
 }
 

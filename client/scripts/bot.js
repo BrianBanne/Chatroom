@@ -8,12 +8,11 @@ class Bot {
     }
 
     async load(self, path) {
-        const file = await fetch(path).then(res => res.json())
+        const file = await fetch(path).then(res => res.json());
         console.log(file);
         name = self.name.lower(); //???
 
         let botdata;
-
 
         if (name === "Wisdombot" || name === "Foodbot" || name === "chairdude") {
             botdata = data[name];

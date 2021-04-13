@@ -1,4 +1,4 @@
-const BASE_URL = "http://0.0.0.0:8000/api";
+const BASE_URL = "http://127.0.0.1:8000/api";
 
 async function createUser(name) {
   const response = await fetch(BASE_URL.concat("/users"), {
