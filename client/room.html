@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <h1>Room</h1>
+    <h1 id="roomTitle">Room</h1>
     <nav style="margin: 1rem"><a href="/pick-room">Go back</a></nav>
     <main>
       <div class="container">
@@ -20,7 +20,9 @@
           <ul id="user-list"></ul>
           <button id="logoutBtn">Leave room</button>
           <div class="botsettings">
-            <form id="joinRoom" ></form>
+            <h2>BOTS</h2>
+
+            <form id="joinRoom"></form>
             <label for="bots">Add # of bots:</label>
             <!-- legge til en funksjon som tar antall bots fra "bots" og legger til tilfeldige(?) bots-->
             <select name="bots" id="bots">
@@ -29,10 +31,9 @@
               <option value="3">3</option>
               <option value="4">4</option>
             </select>
-            <br><br>
-            <input type="submit" value="Add">
+            <br /><br />
+            <input type="submit" value="Add" />
           </div>
-
         </div>
         <div class="chat-window">
           <div class="input">

@@ -1,24 +1,11 @@
 import { createRoom, getRooms, joinRoom } from "../api.js";
 
-async function fetchRooms() {
-  const { rooms } = await getRooms();
-
-  if (typeof rooms === "undefined" || rooms.length === 0) {
-    document.getElementById("joinRoomBtn").disabled = true;
-  } else {
-    document.getElementById("joinRoomBtn").disabled = false;
-    document.getElementById("room_id").innerHTML = getAvailableRooms(rooms);
-  }
-}
-
-const user = JSON.parse(localStorage.getItem("swagbot_user"));
-
-const { username, userId } = user;
+let numberOfRooms = 0;
+const { username, userId } = JSON.parse(localStorage.getItem("swagbot_user"));
+fetchRooms();
 
 document.getElementById("username").innerHTML =
   username !== undefined ? username : "";
-
-fetchRooms();
 
 const pickRoomForm = document.getElementById("pickRoomForm");
 document
@@ -29,32 +16,51 @@ pickRoomForm.addEventListener("submit", handleEnterRoom);
 
 async function handleEnterRoom() {
   const selectedRoomId = document.getElementById("room_id").value.toString();
-  console.log(selectedRoomId);
+
   try {
     const { room } = await joinRoom(userId, selectedRoomId);
-    goToRoom(selectedRoomId);
+    goToRoom(room, "Room joined succesfully");
   } catch (err) {
     alert(err);
   }
 }
 
 async function handleCreateRoom() {
+  console.log("number", numberOfRooms);
   try {
-    const { room } = await createRoom(userId);
+    const { room } = await createRoom(userId, numberOfRooms);
 
-    alert("Room succesfully created!");
-    goToRoom(room.id);
+    goToRoom(room, "Room created successfully!");
   } catch (err) {
     alert(err);
   }
 }
 
-function goToRoom(roomId) {
-  localStorage.setItem("swagbot_room", roomId);
-  window.location = `/room?id=${roomId}`;
+//Function fires on page-load
+async function fetchRooms() {
+  const { rooms } = await getRooms();
+  if (typeof rooms === "undefined" || rooms.length === 0) {
+    document.getElementById("joinRoomBtn").disabled = true;
+  } else {
+    document.getElementById("joinRoomBtn").disabled = false;
+    document.getElementById("room_id").innerHTML = getAvailableRooms(rooms);
+  }
+  //Used for room-naming
+  numberOfRooms = rooms.length + 1;
 }
 
-export function getAvailableRooms(rooms) {
+// HELPERS
+
+function goToRoom(room, message) {
+  alert(message);
+  localStorage.setItem(
+    "swagbot_room",
+    JSON.stringify({ id: room.id, name: room.name })
+  );
+  window.location = `/room?id=${room.id}`;
+}
+
+function getAvailableRooms(rooms) {
   let roomRange = "";
 
   rooms.map(

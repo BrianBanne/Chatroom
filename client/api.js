@@ -67,13 +67,14 @@ async function joinRoom(userId, roomId) {
     body: JSON.stringify({ userId: userId }),
   });
 
-  if (!response.ok) throw Error("Server unable to join room");
+  if (!response.ok) {
+    console.log(response);
+    throw Error("Server unable to join room" + error);
+  }
   return response.json();
 }
 
 async function getRoomUsers(roomId, userId) {
-  console.log(roomId);
-  console.log(userId);
   const response = await fetch(BASE_URL.concat(`/room/${roomId}/users`), {
     method: "GET",
     mode: "cors",
@@ -83,23 +84,23 @@ async function getRoomUsers(roomId, userId) {
     },
   });
 
-  if (!response.ok)
-    throw Error("Server unable to fetch room users", response.statusText);
+  if (!response.ok){
+    console.log(response.text());
+    throw Error("Server unable to fetch room users" + response.text());
+
+  }
   return response.json();
 }
 
 async function getRoomMessages(roomId, userId) {
-  const response = await fetch(
-    BASE_URL.concat(`/room/${roomId}/messages`),
-    {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        userid: userId,
-      },
-    }
-  );
+  const response = await fetch(BASE_URL.concat(`/room/${roomId}/messages`), {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      userid: userId,
+    },
+  });
   if (!response.ok) throw Error("Unable to post message", response.statusText);
   return response.json();
 }
