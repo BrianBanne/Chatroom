@@ -9,7 +9,6 @@ class Bot {
 
     async load(self, path) {
         const file = await fetch(path).then(res => res.json())
-        let data = JSON.load(file);
         console.log(file);
         name = self.name.lower(); //???
 

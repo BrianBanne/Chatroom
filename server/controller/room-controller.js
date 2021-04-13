@@ -45,7 +45,6 @@ function addUserToRoom(req, res) {
     return res.status(400).json({ error: "Could not get a room from id" });
 
   room.addUser(getUserFromList(userId, deserializedUsers));
-  console.log(room);
 
   return res.status(200).json({ room: room });
 }

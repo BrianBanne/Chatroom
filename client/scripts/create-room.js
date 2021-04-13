@@ -1,7 +1,7 @@
 import { createRoom, getRooms, joinRoom } from "../api.js";
 
 async function fetchRooms() {
-  const { data: rooms } = await getRooms();
+  const { rooms } = await getRooms();
 
   if (typeof rooms === "undefined" || rooms.length === 0) {
     document.getElementById("joinRoomBtn").disabled = true;
@@ -11,9 +11,9 @@ async function fetchRooms() {
   }
 }
 
-const user = JSON.parse(localStorage.getItem("swagbot_user"))
+const user = JSON.parse(localStorage.getItem("swagbot_user"));
 
-const { username, id: userId } = user
+const { username, userId } = user;
 
 document.getElementById("username").innerHTML =
   username !== undefined ? username : "";
@@ -31,18 +31,17 @@ async function handleEnterRoom() {
   const selectedRoomId = document.getElementById("room_id").value.toString();
   console.log(selectedRoomId);
   try {
-    const res = await joinRoom(userId, selectedRoomId);
+    const { room } = await joinRoom(userId, selectedRoomId);
     goToRoom(selectedRoomId);
   } catch (err) {
     alert(err);
   }
 }
 
-console.log("pre", userId);
-
 async function handleCreateRoom() {
   try {
-    const room = await createRoom(userId);
+    const { room } = await createRoom(userId);
+
     alert("Room succesfully created!");
     goToRoom(room.id);
   } catch (err) {

@@ -40,7 +40,7 @@ function postUserMessage(req, res) {
 
   const user = getUserFromList(userId, deserializedUsers);
   room.addMessage(user, text);
-  return res.status(201).json(room.messages);
+  return res.status(201).json({ messages: room.messages });
 }
 
 function getMessagesFromRoomId(req, res) {
@@ -58,7 +58,7 @@ function getMessagesFromRoomId(req, res) {
   if (room === undefined)
     return res.status(400).json({ error: "Could not get a room from id" });
 
-  return res.status(200).json(room.messages);
+  return res.status(200).json({ messages: room.messages });
 }
 
 module.exports = { getMessagesFromRoomId, getUserMessages, postUserMessage };

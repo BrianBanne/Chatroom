@@ -1,4 +1,4 @@
-const BASE_URL = "http://0.0.0.0:8080/api";
+const BASE_URL = "http://0.0.0.0:8000/api";
 
 async function createUser(name) {
   const response = await fetch(BASE_URL.concat("/users"), {
@@ -7,7 +7,7 @@ async function createUser(name) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(name),
+    body: JSON.stringify({ username: name }),
   });
   if (!response.ok) throw Error("Unable to create user");
   return response.json();
@@ -26,7 +26,7 @@ async function getUsers() {
   return response.json();
 }
 
-async function createRoom(userId) {
+async function createRoom(userId, roomName = "") {
   console.log("userid", userId);
   const response = await fetch(BASE_URL.concat("/rooms"), {
     method: "POST",
@@ -34,7 +34,7 @@ async function createRoom(userId) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(userId),
+    body: JSON.stringify({ userId: userId, roomName: roomName }),
   });
   if (!response.ok) throw Error("Server unable to createRoom");
 
@@ -58,14 +58,13 @@ async function getRooms() {
 }
 
 async function joinRoom(userId, roomId) {
-
   const response = await fetch(BASE_URL.concat(`/room/${roomId}/users`), {
     method: "POST",
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(userId),
+    body: JSON.stringify({ userId: userId }),
   });
 
   if (!response.ok) throw Error("Server unable to join room");
@@ -80,24 +79,24 @@ async function getRoomUsers(roomId, userId) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      user_id: userId,
+      userid: userId,
     },
   });
 
   if (!response.ok)
-    throw Error("Server unable to createRoom", response.statusText);
+    throw Error("Server unable to fetch room users", response.statusText);
   return response.json();
 }
 
 async function getRoomMessages(roomId, userId) {
   const response = await fetch(
-    BASE_URL.concat(`/room/${roomId}/${userId}/messages`),
+    BASE_URL.concat(`/room/${roomId}/messages`),
     {
       method: "GET",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        user_id: userId,
+        userid: userId,
       },
     }
   );
@@ -114,9 +113,9 @@ async function sendMessage(roomId, userId, message) {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        user_id: userId,
+        userid: userId,
       },
-      body: JSON.stringify(message),
+      body: JSON.stringify({ text: message }),
     }
   );
   if (!response.ok) throw Error("Unable to post message", response.statusText);
