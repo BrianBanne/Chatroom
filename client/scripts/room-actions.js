@@ -1,15 +1,15 @@
 import {getRoomUsers, sendMessage, getRoomMessages, createUser, createRoom, joinRoom, getRooms} from "../api.js";
 import data from '../botinfo.json';
 
-const User = require("./models/user");
-const Room = require("./models/room");
-const roomId = localStorage.getItem("swagbot_room");
+const { id: roomId, name: roomName } = JSON.parse(
+  localStorage.getItem("swagbot_room")
+);
+
 const { username, userId } = localStorage.getItem("swagbot_user")
   ? JSON.parse(localStorage.getItem("swagbot_user"))
   : null;
 
-/*  document.getElementById("swagbot_user").innerHTML =
-  username !== undefined ? username : ""; */
+document.getElementById("roomTitle").innerHTML = `Room #${roomName}`
 
 updateWindow();
 //Pulls data from the API every 5 seconds
@@ -20,7 +20,7 @@ updateWindow();
 async function updateWindow() {
   try {
     const { users } = await getRoomUsers(roomId, userId);
-    const { messages, room } = await getRoomMessages(roomId, userId);
+    const { messages } = await getRoomMessages(roomId, userId);
     console.log(messages);
     updateMessageView(messages);
     document.getElementById("user-list").innerHTML = getUserList(users);
@@ -45,6 +45,7 @@ async function handleSendMessage() {
   }
 }
 
+//Maps all messages to an <p> element and updates the html
 function updateMessageView(messages) {
   console.log(messages);
   if (typeof messages === "undefined") return "";
