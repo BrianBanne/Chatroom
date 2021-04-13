@@ -27,7 +27,6 @@ async function getUsers() {
 }
 
 async function createRoom(userId, roomName = "") {
-  console.log("userid", userId);
   const response = await fetch(BASE_URL.concat("/rooms"), {
     method: "POST",
     mode: "cors",
@@ -68,7 +67,6 @@ async function joinRoom(userId, roomId) {
   });
 
   if (!response.ok) {
-    console.log(response);
     throw Error("Server unable to join room" + error);
   }
   return response.json();
@@ -85,7 +83,6 @@ async function getRoomUsers(roomId, userId) {
   });
 
   if (!response.ok){
-    console.log(response.text());
     throw Error("Server unable to fetch room users" + response.text());
 
   }
@@ -106,7 +103,6 @@ async function getRoomMessages(roomId, userId) {
 }
 
 async function sendMessage(roomId, userId, message) {
-  console.log(roomId, userId, message);
   const response = await fetch(
     BASE_URL.concat(`/room/${roomId}/${userId}/messages`),
     {

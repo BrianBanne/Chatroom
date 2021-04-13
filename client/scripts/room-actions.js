@@ -1,5 +1,5 @@
-import {getRoomUsers, sendMessage, getRoomMessages, createUser, createRoom, joinRoom, getRooms} from "../api.js";
-import data from '../botinfo.json';
+import { getRoomMessages, getRoomUsers, sendMessage } from "../api.js";
+import Bot from "./bot.js";
 
 const { id: roomId, name: roomName } = JSON.parse(
   localStorage.getItem("swagbot_room")
@@ -9,7 +9,7 @@ const { username, userId } = localStorage.getItem("swagbot_user")
   ? JSON.parse(localStorage.getItem("swagbot_user"))
   : null;
 
-document.getElementById("roomTitle").innerHTML = `Room #${roomName}`
+document.getElementById("roomTitle").innerHTML = `Room #${roomName}`;
 
 updateWindow();
 //Pulls data from the API every 5 seconds
@@ -33,6 +33,9 @@ const messageForm = document.getElementById("sendMessage");
 messageForm.addEventListener("submit", handleSendMessage);
 const textBox = document.getElementById("msg_input");
 
+const addBotForm = document.getElementById("addBotForm");
+addBotForm.addEventListener("submit", handleAddBots);
+
 async function handleSendMessage() {
   const messageText = textBox.value;
   textBox.value = "";
@@ -43,6 +46,13 @@ async function handleSendMessage() {
   } catch (err) {
     alert(err);
   }
+}
+
+function handleAddBots() {
+  const botQty = document.getElementById("bot_qty").value;
+  console.log(botQty, "# of bots");
+
+  addBots(botQty, roomId);
 }
 
 //Maps all messages to an <p> element and updates the html
@@ -57,56 +67,34 @@ function updateMessageView(messages) {
   document.getElementById("messageContainer").innerHTML = formattedMessages;
 }
 
-function getrandomelement(array) {
-  return array[Math.floor(Math.random() * array.length)];
-}
-
 //add bots for each swtich case, and makes a room for them to be in
 async function addBots(quantity, roomId) {
-  const word = data;
-  const bot1 = createUser("Foodbot");
-  const bot2 = createUser("Chairbot");
-  const bot3 = createUser("Wisdombot");
-  const bot4 = createUser("Basicbot");
-  /* read from messages
-    if (read.includes("hello")) {
-      await sendMessage(roomId, userId, word.Foodbot.greetings)
-    }
-     */
+  console.log("qty", quantity);
+
+  const bot1 = new Bot("Bottefar", roomId);
+  bot1.init(roomId);
+  console.log(bot1);
+
+  setInterval(async () => {
+    const { messages } = await bot1.respond(roomId);
+    updateMessageView(messages);
+  }, 3000);
 
   switch (quantity) {
     case 1:
-      //ikke så viktig med deg
-        /*
-    const {room} = createRoom(bot1.userId, roomId);
-    const {rooms} = getRooms();
-      if (rooms.length !== 0) {
-        await joinRoom(bot1.userId, room.id);
-      }
-         */
 
-    const {join} = joinRoom(bot1.userId, roomId);
-    const {read} = await getRoomMessages(roomId, bot1.userId);
-    const {messages} = await sendMessage(roomId, userId, getrandomelement(word.Foodbot.greetings));
-      updateMessageView(messages);
-      sendMessandUpdate("hello");
-
-      setTimeout(function(){}, 1000);
+    /*     setTimeout(function () {}, 1000);
     case 2:
-    //add two bots
+      //add two bots
       await createRoom(userId, "Room2");
 
     case 3:
-    // add three
-      createRoom(userId, "Room3")
-
-
+      // add three
+      createRoom(userId, "Room3");
 
     case 4:
-    //add four bouts
-      createRoom(userId, "Room4")
-
-
+      //add four bouts
+      createRoom(userId, "Room4"); */
   }
 }
 
