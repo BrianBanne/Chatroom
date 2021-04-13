@@ -1,8 +1,8 @@
 const User = require("./models/user");
 const Room = require("./models/room");
 
-const ROOMS = [];
-const USERS = [];
+let ROOMS = [];
+let USERS = [];
 
 const room = new Room("Det kule roomet");
 const user1 = new User("Hans");
