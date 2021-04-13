@@ -7,7 +7,7 @@ class User {
   }
 
   getUser() {
-    return { username: this.username, userId: this.userId };
+    return { username: this.username, id: this.userId };
   }
 }
 

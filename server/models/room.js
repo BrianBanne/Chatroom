@@ -1,5 +1,3 @@
-const { text } = require("express");
-const Message = require("../models/message");
 const { uuidv4 } = require("../utils");
 
 class Room {
@@ -11,8 +9,8 @@ class Room {
     this.messages = [];
   }
 
-  addUser(userId) {
-    this.users.push({ userId: userId, messages: [] });
+  addUser(user) {
+    this.users.push({ ...user, messages: [] });
   }
 
   getAllUsers() {
@@ -24,9 +22,9 @@ class Room {
     };
   }
 
-  addMessage(userId, message) {
+  addMessage(user, message) {
     this.messages.push({
-      userId: userId,
+      ...user,
       message: { text: message, timestamp: Date.now() },
     });
   }
