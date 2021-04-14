@@ -7,12 +7,37 @@ fetchRooms();
 document.getElementById("username").innerHTML =
   username !== undefined ? username : "";
 
+const createRoomButton = document.getElementById("createRoomBtn");
+const deleteRoomButton = document.getElementById("deleteRoomBtn");
 const pickRoomForm = document.getElementById("pickRoomForm");
-document
-  .getElementById("createRoomButton")
-  .addEventListener("click", handleCreateRoom);
 
+createRoomButton.addEventListener("click", handleCreateRoom);
+deleteRoomButton.addEventListener("click", handleDeleteRoom);
 pickRoomForm.addEventListener("submit", handleEnterRoom);
+
+async function handleCreateRoom() {
+  console.log("number", numberOfRooms);
+  try {
+    const { room } = await createRoom(userId, numberOfRooms);
+
+    goToRoom(room, "Room created successfully!");
+  } catch (err) {
+    alert(err);
+  }
+}
+
+async function handleDeleteRoom() {
+  const selectedRoomId = document.getElementById("room_id").value.toString();
+
+  try {
+   // Make route for delete room
+   // goToRoom(room, "Room joined succesfully");
+   alert('Room deleted!')
+   fetchRooms()
+  } catch (err) {
+    alert(err);
+  }
+}
 
 async function handleEnterRoom() {
   const selectedRoomId = document.getElementById("room_id").value.toString();
@@ -25,16 +50,6 @@ async function handleEnterRoom() {
   }
 }
 
-async function handleCreateRoom() {
-  console.log("number", numberOfRooms);
-  try {
-    const { room } = await createRoom(userId, numberOfRooms);
-
-    goToRoom(room, "Room created successfully!");
-  } catch (err) {
-    alert(err);
-  }
-}
 
 //Function fires on page-load
 async function fetchRooms() {

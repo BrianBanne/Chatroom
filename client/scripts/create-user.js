@@ -3,7 +3,14 @@ localStorage.removeItem("swagbot_user");
 localStorage.removeItem("swagbot_room");
 
 const registerForm = document.getElementById("registerForm");
+const cleanUpButton = document.getElementById("cleanup")
 registerForm.addEventListener("submit", handleSubmit);
+cleanUpButton.addEventListener("click", () => {
+  localStorage.removeItem('bots')
+  localStorage.removeItem('swagbot_user')
+  localStorage.removeItem('swagbot_room')
+  alert('Removed all traces of the program, you are welcome')
+})
 
 async function handleGetUsers() {
   const res = await getUsers();
