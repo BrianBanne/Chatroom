@@ -20,13 +20,31 @@ class Bot {
     //console.log(botInfoJSON);
 
     let botData = {};
-
-    if (this.name == "Wisdombot") botData = botInfoJSON.Wisdombot;
-    else if (this.name == "Chairbot") botData = botInfoJSON.Chairbot;
+    //ser bedre ut sånn her, men kanskje det ikke funker
+    //kan ikke sammenligninger i js
+    switch(this.name) {
+      case "Wisdombot":
+        botData = botInfoJSON.Wisdombot;
+        break;
+      case "Chairbot":
+        botData = botInfoJSON.Chairbot;
+        break;
+      case "Foodbot":
+        botData = botInfoJSON.Foodbot;
+        break;
+      default:
+        botData = botInfoJSON.Basicbot;
+    }
+/*
+    if (this.name === "Wisdombot") botData = botInfoJSON.Wisdombot;
+    else if (this.name === "Chairbot") botData = botInfoJSON.Chairbot;
     else botData = botInfoJSON.Basicbot;
+
+ */
 
     this.moods = botData.mood;
     this.wildcards = botData.wildcards;
+    this.explanation = botData.explanation;
     //this.meanings = botData.meanings;
   }
 
@@ -50,17 +68,24 @@ class Bot {
 
       return;
 
-      //TODO: make boot leave room? maybe
+      //TODO: make bot leave room? maybe
     }
-    //TODO analyze input from 'text'
-
     let responseText = "";
     console.log(this.count);
+    //TODO analyze input from 'text'
+    //something like this? includes searches for char in string/object?? dont know
+    //about last one
+    if (text.includes("?")) {
+      responseText = ` ${getRandomElement(this.explanation)}, ${username}`;
+      await sendMessage(roomId, this.id, responseText);
+      this.count += 1;
+    }
+
+
 
     if (this.count % 2 === 0) {
-      responseText = `That make me feel ${getRandomElement(
-        this.moods
-      )} ${username}`;
+      responseText = `That makes me feel ${getRandomElement(
+          this.moods)}, ${username}`;
     } else {
       responseText = getRandomElement(this.wildcards);
     }
