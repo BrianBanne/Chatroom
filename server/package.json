@@ -1,5 +1,5 @@
 {
-  "name": "swagbots client",
+  "name": "swagbots-server",
   "version": "1.0.0",
   "main": "app.js",
   "license": "MIT",

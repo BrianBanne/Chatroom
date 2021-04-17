@@ -1,0 +1,12 @@
+version: "3"
+services:
+  server:
+    container_name: oblig2 server
+    build: ./server
+    command: node /.app.js
+    ports:
+      - "8000: 8000"
+  client:
+    container_name: oblig2 client
+    build: ./client
+    comand: http-server

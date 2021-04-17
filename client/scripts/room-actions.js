@@ -42,7 +42,7 @@ async function updateWindow() {
     updateMessageView(messages);
     document.getElementById("user-list").innerHTML = getUserList(users);
   } catch (err) {
-    alert(err);
+    console.error(err);
   }
 }
 
@@ -59,7 +59,7 @@ async function handleSendMessage() {
     const { messages } = await sendMessage(roomId, userId, messageText);
     updateMessageView(messages);
   } catch (err) {
-    alert(err);
+    console.error(err);
   }
 }
 
@@ -108,7 +108,6 @@ async function addBots(quantity) {
 }
 
 async function letTheBotsTalk() {
-  console.log("in function", state.isBotsAllowedToTalk);
   while (state.isBotsAllowedToTalk) {
     try {
       let lastMessage = await getLastMessage();
@@ -120,14 +119,15 @@ async function letTheBotsTalk() {
       updateMessageView(messages);
     } catch (error) {
       state.isBotsAllowedToTalk = false;
-      alert(error);
+      console.error(error);
     }
   }
 }
 
+//Make the window-scroll 
 function updateScroll() {
-  let element = document.getElementById("messageContainer");
-  element.scrollTop = element.scrollHeight;
+  let messageView = document.getElementById("messageContainer");
+  messageView.scrollTop = element.scrollHeight;
 }
 
 export function getUserList(users) {

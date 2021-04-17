@@ -14,5 +14,7 @@ The client is a fully browser-based client
 3. If the client is unable to fetch, check that the `BASE_URL`- variable located in the `api.js` file matches the
 IP and PORT the server is running from.
 
+### Known limitations
+The bots are session-based, so by refreshing the browser, the bot-context is lost, but is 
 
 
