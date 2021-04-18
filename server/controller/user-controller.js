@@ -30,12 +30,12 @@ function getAllUsers(req, res) {
 function deleteUserFromId(req, res) {
   const userId = req.params.id;
 
-  USERS.splice(
+  const user = USERS.splice(
     USERS.findIndex(user => user.userId === userId),
     1
   );
 
-  return res.status(200).json({ users: USERS });
+  return res.status(200).json({ user: user[0] });
 }
 
 module.exports = {

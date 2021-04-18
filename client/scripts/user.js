@@ -20,23 +20,24 @@ cleanUpButton.addEventListener("click", () => {
 const { users } = await getUsers();
 setUserList(users, "option", "users");
 
-
-document.getElementById("loginFields").disabled = users.length === 0 ? true : false
+document.getElementById("loginFields").disabled =
+  users.length === 0 ? true : false;
 
 async function handleLogin(e) {
   e.preventDefault();
-  const userId = document.getElementById("users").value
+  const userId = document.getElementById("users").value;
   const { user } = await getUser(userId);
   localStorage.removeItem("swagbot_user");
   localStorage.setItem("swagbot_user", JSON.stringify(user));
-  window.location = 'pick-room'
+  window.location = "pick-room";
 }
 
 async function handleDeleteUser(e) {
   e.preventDefault();
   const userId = document.getElementById("users");
-  await deleteUser(userId);
-  window.location.reload()
+  const { user } = await deleteUser(userId);
+  alert(user.username + " successfully deleted");
+  window.location.reload();
 }
 
 async function handleSubmit(e) {
@@ -49,7 +50,6 @@ async function handleSubmit(e) {
   }
   try {
     const { user } = await createUser(name.value);
-    console.log(user);
     localStorage.removeItem("swagbot_user");
     localStorage.setItem("swagbot_user", JSON.stringify(user));
 

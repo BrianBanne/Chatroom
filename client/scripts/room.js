@@ -31,7 +31,8 @@ messageForm.addEventListener("submit", handleSendMessage);
 leaveRoomBtn.addEventListener("click", handleLeaveRoom);
 removeBotsBtn.addEventListener("click", handleRemoveBots);
 fetchMsgBtn.addEventListener("click", updateWindow)
-//Retrives and renders messages on page load
+
+//Retrieves and renders messages on page load
 await updateWindow();
 
 function handleBotTalking() {
@@ -70,18 +71,13 @@ async function handleSendMessage() {
 
 async function handleAddBots() {
   const botQty = parseInt(document.getElementById("bot_qty").value);
-<<<<<<< HEAD
   addBots(botQty, roomId);
   await updateWindow();
-=======
-  await addBots(botQty);
->>>>>>> main
 }
 
 async function handleRemoveBots() {
   try {
     botContainer.forEach((bot) => {
-      console.log(bot.id, bot.roomId);
       removeUserFromRoom(bot.id, bot.roomId);
     });
     alert("Bots removed");
