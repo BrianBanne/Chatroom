@@ -43,7 +43,6 @@ async function handleDeleteUser(e) {
 async function handleSubmit(e) {
   e.preventDefault();
   const name = document.getElementById("name");
-  console.log(name.value);
   if (name.value === "") {
     alert("You have to provide a name");
     name.focus();

@@ -21,6 +21,8 @@ router.delete("/room/:id", RoomController.deleteRoom);
 
 router.get("/room/:id/users", RoomController.getRoomUsers);
 router.post("/room/:id/users", RoomController.addUserToRoom);
+router.delete("/room/:id/user/:userId", RoomController.removeUser);
+
 
 //Message routes
 router.get("/room/:id/messages", MessageController.getMessagesFromRoomId);

@@ -45,7 +45,7 @@ h1 {
   align-items: center;
   justify-content: center;
   align-self: stretch;
-  margin: 0 auto;
+  margin-left: 1rem;
 }
 
 .chat-window > .input {
@@ -58,6 +58,7 @@ h1 {
   overflow-y: scroll;
   background-color: aliceblue;
   text-align: left;
+  padding: 10px;
 }
 
 .flex {
@@ -67,9 +68,11 @@ h1 {
   justify-items: center;
   margin: 1rem auto;
 }
+
 fieldset {
   border: none;
 }
+
 .col {
   flex-direction: column;
 }
@@ -93,16 +96,24 @@ form * {
   align-items: center;
 }
 
+#msg_input {
+  width: 100%;
+  min-height: 60px;
+}
+
 .sendBtn {
   display: inline-block;
   margin: 0;
   padding: 10px 0;
   height: 100%;
   width: 50px;
-  background-color: grey;
-  border: none;
+  font-weight: bold;
+  background-color:transparent;
+  border: solid black 2px;
+  transition: all 0.3s;
 }
 
 .sendBtn:hover {
   cursor: pointer;
+  background-color: pink;
 }

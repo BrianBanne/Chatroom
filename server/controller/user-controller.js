@@ -1,6 +1,5 @@
 const { USERS } = require("../database");
 const User = require("../models/user");
-const { isUserAuth } = require("../utils");
 
 function addUser(req, res) {
   const username = req.body.username;

@@ -1,7 +1,6 @@
 //const BASE_URL = "http://127.0.0.1:8000/api";
 const BASE_URL = "http://0.0.0.0:8000/api";
 
-
 /* USER ROUTES */
 async function createUser(name) {
   const response = await fetch(BASE_URL.concat("/users"), {
@@ -77,7 +76,7 @@ async function deleteRoom(userId, roomId) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ userId: userId}),
+    body: JSON.stringify({ userId: userId }),
   });
   if (!response.ok) throw Error("Server unable to delete room");
 
@@ -116,6 +115,24 @@ async function joinRoom(userId, roomId) {
   return response.json();
 }
 
+async function removeUserFromRoom(userId, roomId) {
+  const response = await fetch(
+    BASE_URL.concat(`/room/${roomId}/user/${userId}`),
+    {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw Error("Server unable to delete user");
+  }
+  return response.json();
+}
+
 async function getRoomUsers(roomId, userId) {
   const response = await fetch(BASE_URL.concat(`/room/${roomId}/users`), {
     method: "GET",
@@ -126,9 +143,8 @@ async function getRoomUsers(roomId, userId) {
     },
   });
 
-  if (!response.ok){
+  if (!response.ok) {
     throw Error("Server unable to fetch room users" + response.text());
-
   }
   return response.json();
 }
@@ -174,6 +190,7 @@ export {
   createRoom,
   deleteRoom,
   joinRoom,
+  removeUserFromRoom,
   getRoomUsers,
   sendMessage,
   getRoomMessages,

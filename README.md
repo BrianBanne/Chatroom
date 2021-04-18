@@ -22,6 +22,6 @@ The client is a fully browser-based client
 IP and PORT the server is running from.
 
 ### Known limitations
-The bots are session-based, so by refreshing the browser, the bot-context is lost, but is 
+The bots are session-based, so by refreshing the browser, the bot-context is lost, but the bots still lives on in the server. 
 
 
