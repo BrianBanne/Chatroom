@@ -1,4 +1,5 @@
 import { createRoom, getRooms, joinRoom, deleteRoom } from "../api.js";
+import { addBots } from "./room.js";
 
 let numberOfRooms = 0;
 const { username, userId } = JSON.parse(localStorage.getItem("swagbot_user"));
@@ -10,10 +11,21 @@ document.getElementById("username").innerHTML =
 const createRoomButton = document.getElementById("createRoomBtn");
 const deleteRoomButton = document.getElementById("deleteRoomBtn");
 const pickRoomForm = document.getElementById("pickRoomForm");
+const crazyBotsButton = document.getElementById("crazybots");
 
 createRoomButton.addEventListener("click", handleCreateRoom);
 deleteRoomButton.addEventListener("click", handleDeleteRoom);
 pickRoomForm.addEventListener("submit", handleEnterRoom);
+crazyBotsButton.addEventListener("click", botsAreCrazy);
+
+async function botsAreCrazy() {
+  try {
+    const { room } = await createRoom(userId, numberOfRooms);
+    await addBots(2);
+  } catch (err) {
+    alert(err);
+  }
+}
 
 async function handleCreateRoom() {
   try {

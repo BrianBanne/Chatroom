@@ -162,3 +162,4 @@ function getItemFromLocalStorage(id, isArray = false) {
   let data = localStorage.getItem(id);
   return data ? JSON.parse(data) : isArray ? [] : {};
 }
+export { addBots } ;
