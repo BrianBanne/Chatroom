@@ -13,6 +13,13 @@ class Room {
     this.users.push({ ...user, messages: [] });
   }
 
+  removeUser(userId){
+    this.users.splice(
+      this.users.findIndex(user => user.userId === userId),
+      1
+    );
+  }
+
   getAllUsers() {
     return {
       id: this.id,

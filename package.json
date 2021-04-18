@@ -1,24 +1,18 @@
 {
   "name": "oblig2_nettverk",
   "version": "1.0.0",
-  "description": "## Server 1. The backend is node.js with express. 2. Install dependencies by running `npm install` in the server directory. 3. Then start the server with `node app.js`",
-  "main": "index.js",
+  "description": "",
   "scripts": {
     "start": "concurrently  \"npm run client\"  \"npm run server\"",
     "client": "cd client && http-server -p 3000",
-    "server": "cd server && node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "cd server && node app.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hanseklev/oblig2_nettverk.git"
   },
-  "author": "",
+  "author": "Hans Erling Klevstad og Brian Banne",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hanseklev/oblig2_nettverk/issues"
-  },
-  "homepage": "https://github.com/hanseklev/oblig2_nettverk#readme",
   "dependencies": {
     "concurrently": "^6.0.2",
     "express": "^4.17.1",

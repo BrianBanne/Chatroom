@@ -18,11 +18,8 @@ class Bot {
 
   async loadData() {
     let botInfoJSON = await fetch("botinfo.json").then((res) => res.json());
-    //console.log(botInfoJSON);
-
     let botData = {};
-    //ser bedre ut sånn her, men kanskje det ikke funker
-    //kan ikke sammenligninger i js
+
     switch (this.name) {
       case "Wisdombot":
         botData = botInfoJSON.Wisdombot;
@@ -48,10 +45,7 @@ class Bot {
 
   async respond(roomId, msg = "") {
     const { username, message } = msg;
-
     const lastMessage = message?.text;
-    //Adds some random delay to each response, preventing the bots go haywire
-    await sleep(getRandomResponseTime());
     let responseText = "";
 
     if (this.count > 10) return;
@@ -75,14 +69,6 @@ class Bot {
     this.count += 1;
     return await sendMessage(roomId, this.id, responseText);
   }
-}
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function getRandomResponseTime() {
-  return 2 + Math.random() * 6000;
 }
 
 function getRandomElement(array) {

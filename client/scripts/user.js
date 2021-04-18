@@ -35,15 +35,13 @@ async function handleLogin(e) {
 async function handleDeleteUser(e) {
   e.preventDefault();
   const userId = document.getElementById("users");
-  const { users } = await deleteUser(userId);
-  //setUserList(users, "option", "users");
+  await deleteUser(userId);
   window.location.reload()
 }
 
 async function handleSubmit(e) {
   e.preventDefault();
   const name = document.getElementById("name");
-  console.log(name.value);
   if (name.value === "") {
     alert("You have to provide a name");
     name.focus();
