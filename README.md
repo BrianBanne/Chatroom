@@ -1,9 +1,16 @@
 # oblig2_nettverk
 
+We are using the package concurrently to run both server and client in the same terminal window.
+
+
+## How to get started:
+1. from the root folder, run `npm install` to get all dependencies. It is assumed that `node` is already installed on the system.
+2. Run `npm run start` to start both the server and client.
+Navigate to the local address/port it is currently on. Navigate to  
+
+
 ## Server
 1. The backend is node.js with express.
-2. Install dependencies by running `npm install` in the server directory.
-3. Then start the server with `node app.js`
 
 
 ## Client

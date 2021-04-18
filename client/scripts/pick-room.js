@@ -1,4 +1,4 @@
-import { createRoom, getRooms, joinRoom } from "../api.js";
+import { createRoom, getRooms, joinRoom, deleteRoom } from "../api.js";
 
 let numberOfRooms = 0;
 const { username, userId } = JSON.parse(localStorage.getItem("swagbot_user"));
@@ -16,11 +16,10 @@ deleteRoomButton.addEventListener("click", handleDeleteRoom);
 pickRoomForm.addEventListener("submit", handleEnterRoom);
 
 async function handleCreateRoom() {
-  console.log("number", numberOfRooms);
   try {
-    const { room } = await createRoom(userId, numberOfRooms);
+    const { room } = await createRoom(userId, numberOfRooms); //numberOfRooms used as room name
 
-    goToRoom(room, "Room created successfully!");
+    goToRoom(room);
   } catch (err) {
     alert(err);
   }
@@ -30,12 +29,11 @@ async function handleDeleteRoom() {
   const selectedRoomId = document.getElementById("room_id").value.toString();
 
   try {
-   // Make route for delete room
-   // goToRoom(room, "Room joined succesfully");
-   alert('Room deleted!')
-   fetchRooms()
+    const { rooms } = await deleteRoom(userId, selectedRoomId);
+    document.getElementById("room_id").innerHTML = getAvailableRooms(rooms);
+    alert('Room deleted successfully!')
   } catch (err) {
-    alert(err);
+    console.error(err);
   }
 }
 
@@ -44,12 +42,11 @@ async function handleEnterRoom() {
 
   try {
     const { room } = await joinRoom(userId, selectedRoomId);
-    goToRoom(room, "Room joined succesfully");
+    goToRoom(room);
   } catch (err) {
     alert(err);
   }
 }
-
 
 //Function fires on page-load
 async function fetchRooms() {
@@ -66,8 +63,7 @@ async function fetchRooms() {
 
 // HELPERS
 
-function goToRoom(room, message) {
-  alert(message);
+function goToRoom(room) {
   localStorage.setItem(
     "swagbot_room",
     JSON.stringify({ id: room.id, name: room.name })

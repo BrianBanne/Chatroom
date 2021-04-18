@@ -7,7 +7,7 @@
     <meta name="description" content="Oblig 2" />
     <link rel="shortcut icon" href="#" />
     <link rel="stylesheet" href="styles.css" />
-    <script src="./scripts/room-actions.js" type="module"></script>
+    <script src="./scripts/room.js" type="module"></script>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
         <div class="contact-list">
           <h2>Users in room</h2>
           <ul id="user-list"></ul>
-          <button id="logoutBtn">Leave room</button>
+          <button id="leaveRoomBtn">Leave room</button>
           <div class="botsettings">
             <h2>BOTS</h2>
 
@@ -34,6 +34,8 @@
               <br /><br />
               <input type="submit" value="Add" />
               <button type="button" id="botTalkBtn">Let the bots talk!</button>
+              <button type="button" id="removeBotsBtn">Silence forever (delete)</button>
+
             </form>
           </div>
         </div>

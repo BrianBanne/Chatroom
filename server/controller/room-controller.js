@@ -5,16 +5,33 @@ const { isUserAuth, findRoom, getUserFromList } = require("../utils");
 function createRoom(req, res) {
   //TODO:  check if user exists
   const { roomName, userId } = req.body;
-
-  newRoom = new Room(roomName, userId);
-
   const deserializedUsers = USERS.map((i) => i.getUser());
-
+  const newRoom = new Room(roomName, userId);
+  
   newRoom.addUser(getUserFromList(userId, deserializedUsers));
-
   ROOMS.push(newRoom);
 
   return res.status(201).json({ room: newRoom });
+}
+
+function deleteRoom(req, res) {
+  const roomId = req.params.id;
+  const userId = req.body.userId;
+
+  const room = findRoom(roomId, ROOMS);
+
+  if (!isUserAuth(userId, room.users))
+    return res
+      .status(403)
+      .json({ error: "User not allowed to perform action" });
+
+  //Finds the room by id and removes it from array
+  const deletedRoom = ROOMS.splice(ROOMS.findIndex(({ id }) => id === roomId), 1);
+
+  if (deletedRoom === undefined)
+    return res.status(400).json({ error: "Could not delete room"});
+
+  return res.status(200).json({ rooms: ROOMS });
 }
 
 function getRooms(req, res) {
@@ -75,4 +92,5 @@ module.exports = {
   getRoomFromId,
   getRoomUsers,
   createRoom,
+  deleteRoom,
 };

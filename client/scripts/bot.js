@@ -8,10 +8,11 @@ class Bot {
     this.count = 0;
   }
 
-  async init(roomId) {
-    const { userId } = await createUser(this.name);
-    this.id = userId;
-    await joinRoom(userId, roomId);
+  async init() {
+    const { user } = await createUser(this.name);
+    this.id = user.userId;
+
+    await joinRoom(this.id, this.roomId);
     await this.loadData();
   }
 
@@ -22,7 +23,7 @@ class Bot {
     let botData = {};
     //ser bedre ut sånn her, men kanskje det ikke funker
     //kan ikke sammenligninger i js
-    switch(this.name) {
+    switch (this.name) {
       case "Wisdombot":
         botData = botInfoJSON.Wisdombot;
         break;
@@ -35,17 +36,9 @@ class Bot {
       default:
         botData = botInfoJSON.Basicbot;
     }
-/*
-    if (this.name === "Wisdombot") botData = botInfoJSON.Wisdombot;
-    else if (this.name === "Chairbot") botData = botInfoJSON.Chairbot;
-    else botData = botInfoJSON.Basicbot;
-
- */
-
     this.moods = botData.mood;
     this.wildcards = botData.wildcards;
     this.explanation = botData.explanation;
-    //this.meanings = botData.meanings;
   }
 
   async getMessages(roomId) {
@@ -53,55 +46,35 @@ class Bot {
     return { messages };
   }
 
-  async respond(roomId, lastMessage = "") {
-    const { username, message } = lastMessage;
-    
-    const text = message?.text
+  async respond(roomId, msg = "") {
+    const { username, message } = msg;
+
+    const lastMessage = message?.text;
     //Adds some random delay to each response, preventing the bots go haywire
     await sleep(getRandomResponseTime());
+    let responseText = "";
 
-    //temporary solution bypassing bot respons, but still in the room
     if (this.count > 10) return;
 
     if (this.count === 10) {
-      await sendMessage(roomId, this.id, "Bye bye");
-
-      return;
-
-      //TODO: make bot leave room? maybe
-    }
-    let responseText = "";
-    console.log(this.count);
-    //TODO analyze input from 'text'
-    //something like this? includes searches for char in string/object?? dont know
-    //about last one
-    if (text.includes("?")) {
-      responseText = ` ${getRandomElement(this.explanation)}, ${username}`;
-      await sendMessage(roomId, this.id, responseText);
+      await sendMessage(roomId, this.id, "bye");
       this.count += 1;
+      return;
     }
 
-
-
-    if (this.count % 2 === 0) {
-      responseText = `That makes me feel ${getRandomElement(
-          this.moods)}, ${username}`;
-    } else {
+    if (typeof lastMessage === "undefined")
       responseText = getRandomElement(this.wildcards);
-    }
-    await sendMessage(roomId, this.id, responseText);
+    else if (lastMessage.includes("?"))
+      responseText = ` ${getRandomElement(this.explanation)}, ${username}`;
+    else if (this.count % 2 === 0)
+      responseText = `That makes me feel ${getRandomElement(
+        this.moods
+      )}, ${username}`;
+    else responseText = getRandomElement(this.wildcards);
 
     this.count += 1;
+    return await sendMessage(roomId, this.id, responseText);
   }
-
-  /* respond(self, input) {
-    if (readmessages().includes("hello") || readmessages().includes("hi")) {
-      sendMessage(roomId, userId, self.greetings.values());
-    }
-    //if read includes bye "botname -- leave
-    // grei mal å gå ut ifra eller hva tenker du? hentet litt inspo fra ditt forrige prosjekt
-    //og merga det med mine metoder :P
-  } */
 }
 
 function sleep(ms) {
@@ -109,59 +82,11 @@ function sleep(ms) {
 }
 
 function getRandomResponseTime() {
-  return 2 + Math.random() * 4000;
+  return 2 + Math.random() * 6000;
 }
 
 function getRandomElement(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-function readmessages() {
-  return getRoomMessages();
-}
-
 export { Bot as default };
-
-/*if (name === "Wisdombot") {
-  this.catchphrase = data.Wisdombot.catchphrase.values;
-  this.mood = data.Wisdombot.mood;
-  this.topics = data.Wisdombot.topics;
-  this.explanation = data.Wisdombot.explanation;
-  this.greetings = data.Wisdombot.greetings;
-  this.composer = data.Wisdombot.composer;
-  this.wildcards = data.Wisdombot.wildcards;
-  this.badword = data.Wisdombot.meanings.bad;
-  this.goodword = data.Wisdombot.meanings.good;
-} else if (name === "Foodbot") {
-  this.food = data.Foodbot.food;
-  this.mood = data.Foodbot.mood;
-  this.topics = data.Foodbot.topics;
-  this.explanation = data.Foodbot.explanation;
-  this.greetings = data.Foodbot.greetings;
-  this.wildcards = data.Foodbot.wildcards;
-  this.badword = data.Foodbot.meanings.bad;
-  this.goodword = data.Foodbot.meanings.good;
-} else if(name === "Chairbot") {
-  this.catchphrase = data.Chairbot.chairs.values;
-  this.mood = data.Chairbot.mood;
-  this.greetings = data.Chairbot.greetings;
-  this.wildcards = data.Chairbot.wildcards;
-  this.badword = data.Chairbot.meanings.bad;
-  this.goodword = data.Chairbot.meanings.good;
-} else if (name === "basicbot") {
-  this.SWchara = data.basicbot.starwars.characters;
-  this.catchphrase = data.basicbot.starwars.force;
-  this.SWmovies = data.basicbot.starwars.movies;
-  this.topics = data.basicbot.hobbies.interests;
-  this.explanation = data.basicbot.hobbies.explanation;
-  this.billgatesfacts = data.basicbot.billgates;
-  this.drinkwater = data.basicbot.water.drinkmore;
-  this.albums = data.basicbot.favorite.discography;
-  this.movies = data.basicbot.favorite.movies;
-  this.computerparts = data.basicbot.favorite.computerparts;
-  this.wildcards = data.basicbot.wildcards;
-  this.badmood = data.basicbot.mood.bad;
-  this.goodmood = data.basicbot.mood.good;
-  this.explanation = data.basicbot.explain;
-
-}*/

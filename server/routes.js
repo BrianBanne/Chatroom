@@ -9,13 +9,15 @@ const RoomController = require("./controller/room-controller");
 router.post("/users", UserController.addUser);
 router.get("/users", UserController.getAllUsers);
 
-router.get("user/:id", UserController.getUserFromId);
-router.delete("user/:id", UserController.deleteUserFromId);
+router.get("/user/:id", UserController.getUserFromId);
+router.delete("/user/:id", UserController.deleteUserFromId);
 
 //Room Routes
 router.get("/rooms", RoomController.getRooms);
 router.post("/rooms", RoomController.createRoom);
 router.get("/room/:id", RoomController.getRoomFromId);
+router.delete("/room/:id", RoomController.deleteRoom);
+
 
 router.get("/room/:id/users", RoomController.getRoomUsers);
 router.post("/room/:id/users", RoomController.addUserToRoom);

@@ -7,29 +7,40 @@
     <meta name="description" content="Oblig 2" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="shortcut icon" href="#" />
-    <script src="./scripts/create-user.js" type="module"></script>
+    <script src="./scripts/user.js" type="module"></script>
   </head>
 
   <body>
     <main>
-      <h1>Swagbots </h1>
-      <div class="container">
-        <section class="form">
+      <h1>Swagbots</h1>
+      <div class="container col">
+        <section class="flex">
           <h2>Register</h2>
           <form id="registerForm" onsubmit="return false">
             <label>
               Name:
               <input type="text" id="name" name="name" />
             </label>
-
-            <!--  <label>
-              Room:
-              <select id="room_id"></select>
-            </label> -->
             <button type="submit">Create user</button>
           </form>
         </section>
-    <footer style="position: absolute; bottom: 0; margin-bottom: 4rem; "><button id="cleanup">Click here</button> to clean up local storage</footer>
+
+        <section class="flex">
+          <h2>Log in</h2>
+          <form id="loginForm" onsubmit="return false">
+            <fieldset id="loginFields">
+              <label>
+                Pick an existing user:
+                <select id="users"></select>
+              </label>
+              <button type="submit">Log in</button>
+              <button type="button" id="deleteUserBtn">Delete user</button>
+            </fieldset>
+          </form>
+        </section>
+        <footer style="position: absolute; bottom: 0; margin-bottom: 4rem">
+          <button id="cleanup">Click here</button> to clean up local storage
+        </footer>
       </div>
     </main>
   </body>

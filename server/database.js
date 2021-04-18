@@ -10,9 +10,8 @@ const user2 = new User("Brian");
 
 room.addUser(user1);
 room.addUser(user2);
-room.addMessage(user1, "Hei hei");
-room.addMessage(user1, "God dag ");
-room.addMessage(user2, "Heisann");
+room.addMessage(user1, "This is a message from the authors");
+room.addMessage(user2, "Hope you are having a wonderful day!");
 ROOMS.push(room);
 
 module.exports = { ROOMS, USERS };

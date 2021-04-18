@@ -4,27 +4,23 @@ const { isUserAuth } = require("../utils");
 
 function addUser(req, res) {
   const username = req.body.username;
-  const newUser = new User(username)
+  const newUser = new User(username);
   USERS.push(newUser);
 
   return res
     .status(200)
-    .json({ username: newUser.username, userId: newUser.userId });
+    .json({ user: { username: newUser.username, userId: newUser.userId } });
 }
 
-function deleteUserFromId(req, res) {
+function getUserFromId(req, res) {
   const userId = req.params.id;
-  const prevUserCount = USERS.length;
+  const user = USERS.find((user) => {
+    if (user.userId === userId) return user;
+  });
+  if (user === undefined)
+    return res.status(400).json({ error: "Could not find requested user" });
 
-  if (!isUserAuth(userId, USERS))
-    return res.status(403).json({ error: "User not found" });
-
-  USERS.splice(
-    USERS.findIndex(({ id }) => id === userId),
-    1
-  );
-
-  return res.status(200).json({ users: USERS });
+  return res.status(200).json({ user: user });
 }
 
 function getAllUsers(req, res) {
@@ -32,15 +28,15 @@ function getAllUsers(req, res) {
   return res.status(200).json({ users: USERS });
 }
 
-function getUserFromId(req, res) {
+function deleteUserFromId(req, res) {
   const userId = req.params.id;
-  const user = USERS.find((user) => {
-    if (user.id === userId) return user;
-  });
-  if (user === undefined)
-    return res.status(400).json({ error: "Could not find requested user" });
 
-  return res.status(200).json({ user: user });
+  USERS.splice(
+    USERS.findIndex(user => user.userId === userId),
+    1
+  );
+
+  return res.status(200).json({ users: USERS });
 }
 
 module.exports = {
