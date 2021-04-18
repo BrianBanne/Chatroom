@@ -70,8 +70,12 @@ async function handleSendMessage() {
 
 async function handleAddBots() {
   const botQty = parseInt(document.getElementById("bot_qty").value);
+<<<<<<< HEAD
   addBots(botQty, roomId);
   await updateWindow();
+=======
+  await addBots(botQty);
+>>>>>>> main
 }
 
 async function handleRemoveBots() {
@@ -187,5 +191,3 @@ function getRandomBotName() {
 function getRandomResponseTime() {
   return 2 + Math.random() * 6000;
 }
-
-export { addBots };
