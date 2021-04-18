@@ -5,4 +5,4 @@ COPY package.json ./
 RUN npm install -g http-server
 COPY . .
 EXPOSE 8081
-CMD [ "http-server", "-s", "-p 8081" ]
+CMD [ "http-server", "-s" ]
